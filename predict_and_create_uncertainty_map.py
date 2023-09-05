@@ -3,7 +3,7 @@
 from config import *
 from multiprocessing import Pool
 from wsitools.patch_reconstruction.save_wsi_downsampled import SubPatches2BigTiff
-from uncertainty_metrics_for_heatmaps import *
+from uncertainty_metrics import *
 
 filename = 'test_001'
 
@@ -33,18 +33,16 @@ def create_heatmap(args):
     value = preds[i]
     heatmap = 255 - (np.ones((ps,ps)) * value * 255).astype(np.uint8)
     heatmap = cv2.applyColorMap(heatmap, cv2.COLORMAP_TURBO)
-    img_to_save = cv2.addWeighted(heatmap, 0.4, real_img[:,:,:3], 0.6,0)
+    img_to_save = cv2.addWeighted(heatmap, 0.6, real_img[:,:,:3], 0.4,0)
     plt.imsave(os.path.join(path_pp,filename), img_to_save)
     
 if __name__ == '__main__':
-
 
     print('saving patches predictions...')
     pool = Pool(processes=16)                         
     pool.map(create_heatmap, zip(filenames, i_s))
     
 print('stitching patches together and creating heatmap...')
-
 
 sub = SubPatches2BigTiff(patch_dir= path_pp,
                          save_to = os.path.join(path_uncertainty_maps,filename+'.tif'),
