@@ -3,6 +3,7 @@ optimal_threshold = 0.33
 
 def compute_std(x,
                 patch_level = True):
+                
     if not(patch_level):
         x = x[:,np.mean(x,0)>optimal_threshold]
     image_std = np.std(x,0)
@@ -41,7 +42,6 @@ def compute_minority_vote_ratio(x,
                                 patch_level = False):
     n_ = x.shape[0]
     binary_preds = (x >= threshold).astype(int)
-    patch_tumor_pred_count = np.sum(binary_preds, axis=0)
     patch_tumor_pred_count = np.sum(binary_preds, axis=0)
     pl = ((patch_tumor_pred_count-(n_//2))/(n_//2) +1)/2
     return pl
