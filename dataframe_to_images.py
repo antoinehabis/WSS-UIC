@@ -7,6 +7,7 @@ ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 
 split = 'test'
+
 if split == 'train' : 
     path_patches = path_patches_scribbles_train
     path_images = path_slide_tumor_train

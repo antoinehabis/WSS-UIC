@@ -3,6 +3,7 @@
 from config import *
 from multiprocessing import Pool
 from wsitools.patch_reconstruction.save_wsi_downsampled import SubPatches2BigTiff
+from uncertainty_metrics_for_heatmaps import *
 
 filename = 'test_001'
 
@@ -13,11 +14,14 @@ if not os.path.exists(path_pp):
     os.makedirs(path_pp)
 path_pf  = os.path.join(os.path.join(path_prediction_features, filename), 'predictions.npy')
 preds = np.squeeze(np.load(path_pf))
-norm =np.std(np.concatenate([np.ones(10),np.zeros(10)]))
+
 
 ##### SELECT THE UNCERTAINTY MEASURE
-preds = np.std(preds,0)/norm
-preds = (preds - np.min(preds))/(np.max(preds) - np.min(preds))
+
+preds = compute_minority_vote_ratio(preds)
+# preds = compute_entropy(preds, patch_level=True)
+# preds = compute_std(preds, patch_level=True)
+
 #####
 
 filenames = os.listdir(path_patches)
@@ -28,7 +32,7 @@ def create_heatmap(args):
     real_img = np.asarray(Image.open(os.path.join(path_patches,filename)))   
     value = preds[i]
     heatmap = 255 - (np.ones((ps,ps)) * value * 255).astype(np.uint8)
-    heatmap = cv2.applyColorMap(heatmap, cv2.COLORMAP_JET)
+    heatmap = cv2.applyColorMap(heatmap, cv2.COLORMAP_TURBO)
     img_to_save = cv2.addWeighted(heatmap, 0.4, real_img[:,:,:3], 0.6,0)
     plt.imsave(os.path.join(path_pp,filename), img_to_save)
     
@@ -38,8 +42,7 @@ if __name__ == '__main__':
     print('saving patches predictions...')
     pool = Pool(processes=16)                         
     pool.map(create_heatmap, zip(filenames, i_s))
-
-
+    
 print('stitching patches together and creating heatmap...')
 
 
