@@ -189,106 +189,110 @@ def generate_progression_table(image,
                      row4])
 
 
-# def generate_progression_table_dynamic_lr(image, init_epochs=800, corr_epochs=40, inc_lr=1e-3):
-#     ''' 
-#     svm = SGDClassifier(shuffle= True, learning_rate='constant')
-#     svm_lr = 
-#     svm.eta0 = 1e-3 '''
+def generate_progression_table_dynamic_lr(image,
+                                          init_epochs=800,
+                                          corr_epochs=40,
+                                          image_uncertainty = 1.):
+    ''' 
+    svm = SGDClassifier(shuffle= True, learning_rate='constant')
+    svm_lr = 
+    svm.eta0 = 1e-3 '''
 
-#     current_image_path = os.path.join(path_prediction_features, image)
-#     mc_predictions = np.load(os.path.join(current_image_path,'predictions.npy'))
-#     predictions = np.mean(np.squeeze(mc_predictions),axis =0)
-#     trues = np.load(os.path.join(current_image_path,'trues.npy'))
-#     features = np.load(os.path.join(current_image_path,'features.npy'))
-#     features = PCA(1000).fit_transform(features)
-#     features_norm = features # np.nan_to_num((features - np.mean(features,0))/np.std(features,0))
+    current_image_path = os.path.join(path_prediction_features, image)
+    mc_predictions = np.load(os.path.join(current_image_path,'predictions.npy'))
+    predictions = np.mean(np.squeeze(mc_predictions),axis =0)
+    trues = np.load(os.path.join(current_image_path,'trues.npy'))
+    features = np.load(os.path.join(current_image_path,'features.npy'))
+    features = PCA(1000).fit_transform(features)
 
-#     # VGG 16 metrics
-#     row1 = metrics(predictions,trues)
+    # VGG 16 metrics
+    row1 = metrics(predictions,trues)
 
-#     data,y = compute_new_dataset(features_norm,
-#                                 predictions,
-#                                 trues,
-#                                 initialization=True)
-#     svm = SGDClassifier(shuffle= True, learning_rate='constant')
-#     svm.eta0 = inc_lr
+    data,y = compute_new_dataset(features,
+                                predictions,
+                                trues,
+                                initialization=True)
+    svm = SGDClassifier(shuffle= True, learning_rate='constant')
+    svm.eta0 = 1e-4
 
-#     # Initialize SVM
-#     for i in range (init_epochs):
-#         svm.partial_fit(data,
-#                         y,
-#                         classes=np.unique(y))
-#     # SVM pass 1
-#     data, y, indexes_fn1, indexes_fp1  = compute_new_dataset(features_norm,
-#                                                         predictions,
-#                                                         trues,
-#                                                         initialization=False)
+    # Initialize SVM
+    for i in range (init_epochs):
+        svm.partial_fit(data,
+                        y,
+                        classes=np.unique(y))
+
+    svm.eta0 = svm.eta0*image_uncertainty
+    # SVM pass 1
+    data, y, indexes_fn1, indexes_fp1  = compute_new_dataset(features,
+                                                         predictions,
+                                                         trues,
+                                                         initialization=False)
     
-#     for i in range (corr_epochs):
-#         svm.partial_fit(data,y)
+    for i in range (corr_epochs):
+        svm.partial_fit(data,y)
 
-#     a_predictions = svm.prMCpass_epochs_tablesedict(features_norm)
-#     a_predictions[indexes_fn1] = 1
-#     a_predictions[indexes_fp1] = 0
-#     row2 = metrics(a_predictions,trues)
+    a_predictions = svm.predict(features)
+    a_predictions[indexes_fn1] = 1
+    a_predictions[indexes_fp1] = 0
+    row2 = metrics(a_predictions,trues)
 
-#     # SVM pass 2
-#     data, y, indexes_fn2, indexes_fp2  = compute_new_dataset(features_norm,
-#                                                         a_predictions,
-#                                                         trues,
-#                                                         initialization=False)
+    # SVM pass 2
+    data, y, indexes_fn2, indexes_fp2  = compute_new_dataset(features,
+                                                         a_predictions,
+                                                         trues,
+                                                         initialization=False)
     
-#     if metrics(a_predictions,trues)[0] == 1:
-#         b_predictions = a_predictions
-#         b_predictions[indexes_fn2] = 1
-#         b_predictions[indexes_fp2] = 0
-#         row3=[1,1,1,1]
-#         row4=row3
-#         return np.array([row1,
-#                     row2,
-#                     row3,
-#                     row4])
-
-    
-#     for i in range (corr_epochs):
-#         svm.partial_fit(data,
-#                         y,
-#                         classes=[0,1])
-#     b_predictions = svm.predict(features_norm)
-#     b_predictions[indexes_fn1] = 1
-#     b_predictions[indexes_fp1] = 0
-#     b_predictions[indexes_fn2] = 1
-#     b_predictions[indexes_fp2] = 0
-#     row3 = metrics(b_predictions,trues)
-
-
-#     #SVM pass 3
-#     data, y, indexes_fn3, indexes_fp3  = compute_new_dataset(features_norm,
-#                                                         b_predictions,
-#                                                         trues,
-#                                                         initialization=False)
-#     if metrics(b_predictions,trues)[0] == 1:
-#         row4 = [1,1,1,1]
-#         return np.array([row1,
-#                     row2,
-#                     row3,
-#                     row4])
+    if metrics(a_predictions,trues)[0] == 1:
+        b_predictions = a_predictions
+        b_predictions[indexes_fn2] = 1
+        b_predictions[indexes_fp2] = 0
+        row3=[1,1,1,1]
+        row4=row3
+        return np.array([row1,
+                     row2,
+                     row3,
+                     row4])
 
     
-#     for i in range (corr_epochs):
-#         svm.partial_fit(data,
-#                         y,
-#                         classes=[0,1])
-#     c_predictions = svm.predict(features_norm)
-#     c_predictions[indexes_fn1] = 1
-#     c_predictions[indexes_fp1] = 0
-#     c_predictions[indexes_fn2] = 1
-#     c_predictions[indexes_fp2] = 0
-#     c_predictions[indexes_fn3] = 1
-#     c_predictions[indexes_fp3] = 0
-#     row4 = metrics(c_predictions,trues)
+    for i in range (corr_epochs):
+        svm.partial_fit(data,
+                        y,
+                        classes=[0,1])
+    b_predictions = svm.predict(features)
+    b_predictions[indexes_fn1] = 1
+    b_predictions[indexes_fp1] = 0
+    b_predictions[indexes_fn2] = 1
+    b_predictions[indexes_fp2] = 0
+    row3 = metrics(b_predictions,trues)
 
-#     return np.array([row1,
-#                     row2,
-#                     row3,
-#                     row4])
+
+    #SVM pass 3
+    data, y, indexes_fn3, indexes_fp3  = compute_new_dataset(features,
+                                                         b_predictions,
+                                                         trues,
+                                                         initialization=False)
+    if metrics(b_predictions,trues)[0] == 1:
+        row4 = [1,1,1,1]
+        return np.array([row1,
+                     row2,
+                     row3,
+                     row4])
+
+    
+    for i in range (corr_epochs):
+        svm.partial_fit(data,
+                        y,
+                        classes=[0,1])
+    c_predictions = svm.predict(features)
+    c_predictions[indexes_fn1] = 1
+    c_predictions[indexes_fp1] = 0
+    c_predictions[indexes_fn2] = 1
+    c_predictions[indexes_fp2] = 0
+    c_predictions[indexes_fn3] = 1
+    c_predictions[indexes_fp3] = 0
+    row4 = metrics(c_predictions,trues)
+
+    return np.array([row1,
+                     row2,
+                     row3,
+                     row4])

@@ -281,18 +281,17 @@ def main(training_condition):
     val_set =  ['test_016', 'test_068', 'test_021', 'test_075', 'test_113', 'test_094', 'test_082', 'test_105', 'test_073', 'test_071', 'test_121', 'test_064', 'test_065', 'test_069', 'test_051', 'test_008', 'test_033', 'test_030', 'test_048', 'test_052', 'test_046', 'test_099', 'test_038', 'test_013'] 
     image_list = val_set
     epochs_range = range(700, 701, 100)
-    pass_percentage = 0.20
+
+    pass_percentage = 0.025
     mean_tables = [i for i in epochs_range]
+
     n_tables = 10
 
     for s in range(n_tables):
         for m, i in enumerate(epochs_range): # Iterate over epochs
             corr_epochs = int(pass_percentage*i)
-
-            print(i, corr_epochs)
             score_tables = [l for l in range(len(image_list))] # Initialize the metric table list of every image 
             for n, image in tqdm(enumerate(image_list)): # Iterate over images
-                print(image, i)
                 image_table = generate_progression_table(image, i, corr_epochs)
                 score_tables[n] = image_table
 
@@ -310,7 +309,6 @@ def main(training_condition):
 
             table_name = 'metric_table_{}epochs_5percent_{}.csv'.format(i,s)
             df.to_csv(os.path.join(tables_directory, table_name))
-            print(df)
     return mean_tables
 
 if __name__ == '__main__':

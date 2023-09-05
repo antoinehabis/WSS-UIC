@@ -15,7 +15,7 @@ def main(training_condition):
     image_list = os.listdir(path_prediction_features)
     epochs = 800
     n_tables = 1
-    pass_percentage = 0.05
+    pass_percentage = 0.025
     
     for s in range(n_tables):
         

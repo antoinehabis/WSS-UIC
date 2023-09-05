@@ -23,7 +23,7 @@ preds = np.mean(np.squeeze(np.load(path_pf)),0)
 #     value = preds[i]
 #     heatmap = 255 - (np.ones((ps,ps)) * value * 255).astype(np.uint8)
 #     heatmap = cv2.applyColorMap(heatmap, cv2.COLORMAP_JET)
-#     img_to_save = cv2.addWeighted(heatmap, 0.4, real_img[:,:,:3], 0.6,0)
+#     img_to_save = cv2.addWeighted(heatmap, 0.6, real_img[:,:,:3], 0.4,0)
 #     plt.imsave(os.path.join(path_pp,filename), img_to_save)
     
 # if __name__ == '__main__':
@@ -32,8 +32,6 @@ preds = np.mean(np.squeeze(np.load(path_pf)),0)
 #     print('saving patches predictions...')
 #     pool = Pool(processes=16)                         
 #     pool.map(create_heatmap, zip(filenames, i_s))
-
-
 # print('stitching patches together and creating heatmap...')
 
 
