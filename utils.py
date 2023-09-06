@@ -11,24 +11,7 @@ from histolab.filters.image_filters import (
 )
 from histolab.filters.morphological_filters import RemoveSmallHoles, RemoveSmallObjects
 
-def metrics(predictions, trues):
 
-    tp = np.sum((predictions) * trues)
-    tn = np.sum((1 - predictions) * (1 - trues))
-    fp = np.sum((predictions) * (1 - trues))
-    fn = np.sum((1 - predictions) * trues)
-    eps = 1e-6
-    accuracy = np.sum(trues  == (predictions))/trues.shape[0]
-    precision_healthy = tn/ (tn + fn + eps)
-    precision_tumor = tp / (tp + fp + eps)
-    m_precision = (precision_healthy+precision_tumor)/2
-    recall_tumor = tp / (tp + fn +eps)
-    recall_healthy = tn / (tn + fp +eps)
-    m_recall = (recall_tumor+recall_healthy)/2
-    f1 = 2 * (m_precision * m_recall)/(m_precision + m_recall+eps)
-    balanced_accuracy = (m_precision +m_recall)/2
-
-    return balanced_accuracy, m_precision, m_recall, f1
 
 
 
