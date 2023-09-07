@@ -1,0 +1,40 @@
+{"obj": {"type": "AssignString", "path": ["sys", "name"], "value": "Untitled"}, "version": 1}
+{"obj": {"type": "AssignString", "path": ["sys", "description"], "value": ""}, "version": 2}
+{"obj": {"type": "AssignString", "path": ["sys", "hostname"], "value": "dell1"}, "version": 3}
+{"obj": {"type": "AssignBool", "path": ["sys", "failed"], "value": false}, "version": 4}
+{"obj": {"type": "ClearStringLog", "path": ["monitoring", "stdout"]}, "version": 5}
+{"obj": {"type": "ClearStringLog", "path": ["monitoring", "stderr"]}, "version": 6}
+{"obj": {"type": "ConfigFloatSeries", "path": ["monitoring", "cpu"], "min": 0.0, "max": 100.0, "unit": "%"}, "version": 7}
+{"obj": {"type": "ClearFloatLog", "path": ["monitoring", "cpu"]}, "version": 8}
+{"obj": {"type": "ConfigFloatSeries", "path": ["monitoring", "memory"], "min": 0.0, "max": 125.54232025146484, "unit": "GB"}, "version": 9}
+{"obj": {"type": "ClearFloatLog", "path": ["monitoring", "memory"]}, "version": 10}
+{"obj": {"type": "ConfigFloatSeries", "path": ["monitoring", "gpu"], "min": 0.0, "max": 100.0, "unit": "%"}, "version": 11}
+{"obj": {"type": "ClearFloatLog", "path": ["monitoring", "gpu"]}, "version": 12}
+{"obj": {"type": "ConfigFloatSeries", "path": ["monitoring", "gpu_memory"], "min": 0.0, "max": 23.6912841796875, "unit": "GB"}, "version": 13}
+{"obj": {"type": "ClearFloatLog", "path": ["monitoring", "gpu_memory"]}, "version": 14}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stdout"], "values": [{"value": "b''", "step": null, "ts": 1665064907.787052}]}, "version": 15}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stdout"], "values": [{"value": "b'Remember to stop your run once you\\xe2\\x80\\x99ve finished logging your metadata (https://docs.neptune.ai/api-reference/run#.stop). It will be stopped automatically only when the notebook kernel/interactive console is terminated.\\n'", "step": null, "ts": 1665064907.7889879}]}, "version": 16}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 6.8, "step": null, "ts": 1665064907.776531}]}, "version": 17}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 2.210826873779297, "step": null, "ts": 1665064907.776531}]}, "version": 18}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 0.01934814453125, "step": null, "ts": 1665064907.776531}]}, "version": 19}
+{"obj": {"type": "AssignString", "path": ["config", "optimizer"], "value": "Adam (\nParameter Group 0\n    amsgrad: False\n    betas: (0.9, 0.999)\n    eps: 1e-08\n    initial_lr: 0.001\n    lr: 0.001\n    weight_decay: 0\n)"}, "version": 20}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stdout"], "values": [{"value": "tensor([[-0.5068],\n        [-0.6229],\n        [-0.6789],\n        [-0.5648],\n        [-0.6645],\n        [-0.8099],\n        [-0.5508],\n        [-0.6854]], device='cuda:0', grad_fn=<AddmmBackward0>)", "step": null, "ts": 1665064915.4693573}]}, "version": 21}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stdout"], "values": [{"value": "\n", "step": null, "ts": 1665064915.469843}]}, "version": 22}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stdout"], "values": [{"value": "tensor([[1.],\n        [1.],\n        [1.],\n        [1.],\n        [0.],\n        [1.],\n        [0.],\n        [1.]], device='cuda:0')", "step": null, "ts": 1665064915.4706714}]}, "version": 23}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stdout"], "values": [{"value": "\n", "step": null, "ts": 1665064915.4707947}]}, "version": 24}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 11.7, "step": null, "ts": 1665064917.7924306}]}, "version": 25}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 7.856899261474609, "step": null, "ts": 1665064917.7924306}]}, "version": 26}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 5.67706298828125, "step": null, "ts": 1665064917.7924306}]}, "version": 27}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.8, "step": null, "ts": 1665064927.794055}]}, "version": 28}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 6.267890930175781, "step": null, "ts": 1665064927.794055}]}, "version": 29}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 5.67706298828125, "step": null, "ts": 1665064927.794055}]}, "version": 30}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 6.267879486083984, "step": null, "ts": 1665064937.7968497}]}, "version": 31}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 5.67706298828125, "step": null, "ts": 1665064937.7968497}]}, "version": 32}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.1, "step": null, "ts": 1665064947.799107}]}, "version": 33}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 6.267864227294922, "step": null, "ts": 1665064947.799107}]}, "version": 34}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 5.67706298828125, "step": null, "ts": 1665064947.799107}]}, "version": 35}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 6.268093109130859, "step": null, "ts": 1665064957.8513587}]}, "version": 36}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 5.67706298828125, "step": null, "ts": 1665064957.8513587}]}, "version": 37}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 6.268016815185547, "step": null, "ts": 1665064967.85367}]}, "version": 38}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 5.67706298828125, "step": null, "ts": 1665064967.85367}]}, "version": 39}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stdout"], "values": [{"value": "b'Shutting down background jobs, please wait a moment...\\n'", "step": null, "ts": 1665064972.4367712}]}, "version": 40}

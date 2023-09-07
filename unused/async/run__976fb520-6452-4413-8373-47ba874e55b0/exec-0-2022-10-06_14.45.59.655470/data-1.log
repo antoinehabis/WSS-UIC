@@ -1,0 +1,274 @@
+{"obj": {"type": "AssignString", "path": ["sys", "name"], "value": "Untitled"}, "version": 1}
+{"obj": {"type": "AssignString", "path": ["sys", "description"], "value": ""}, "version": 2}
+{"obj": {"type": "AssignString", "path": ["sys", "hostname"], "value": "dell1"}, "version": 3}
+{"obj": {"type": "AssignBool", "path": ["sys", "failed"], "value": false}, "version": 4}
+{"obj": {"type": "ClearStringLog", "path": ["monitoring", "stdout"]}, "version": 5}
+{"obj": {"type": "ClearStringLog", "path": ["monitoring", "stderr"]}, "version": 6}
+{"obj": {"type": "ConfigFloatSeries", "path": ["monitoring", "cpu"], "min": 0.0, "max": 100.0, "unit": "%"}, "version": 7}
+{"obj": {"type": "ClearFloatLog", "path": ["monitoring", "cpu"]}, "version": 8}
+{"obj": {"type": "ConfigFloatSeries", "path": ["monitoring", "memory"], "min": 0.0, "max": 125.54232025146484, "unit": "GB"}, "version": 9}
+{"obj": {"type": "ClearFloatLog", "path": ["monitoring", "memory"]}, "version": 10}
+{"obj": {"type": "ConfigFloatSeries", "path": ["monitoring", "gpu"], "min": 0.0, "max": 100.0, "unit": "%"}, "version": 11}
+{"obj": {"type": "ClearFloatLog", "path": ["monitoring", "gpu"]}, "version": 12}
+{"obj": {"type": "ConfigFloatSeries", "path": ["monitoring", "gpu_memory"], "min": 0.0, "max": 23.6912841796875, "unit": "GB"}, "version": 13}
+{"obj": {"type": "ClearFloatLog", "path": ["monitoring", "gpu_memory"]}, "version": 14}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.6, "step": null, "ts": 1665060359.7465034}]}, "version": 15}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stdout"], "values": [{"value": "b''", "step": null, "ts": 1665060359.7577963}]}, "version": 16}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 9.152904510498047, "step": null, "ts": 1665060359.7465034}]}, "version": 17}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060359.7465034}]}, "version": 18}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stdout"], "values": [{"value": "b'Remember to stop your run once you\\xe2\\x80\\x99ve finished logging your metadata (https://docs.neptune.ai/api-reference/run#.stop). It will be stopped automatically only when the notebook kernel/interactive console is terminated.\\n'", "step": null, "ts": 1665060359.7603724}]}, "version": 19}
+{"obj": {"type": "AssignString", "path": ["config", "optimizer"], "value": "Adam (\nParameter Group 0\n    amsgrad: False\n    betas: (0.9, 0.999)\n    eps: 1e-08\n    initial_lr: 0.001\n    lr: 0.001\n    weight_decay: 0\n)"}, "version": 20}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.1, "step": null, "ts": 1665060369.7599127}]}, "version": 21}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 9.626899719238281, "step": null, "ts": 1665060369.7599127}]}, "version": 22}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060369.7599127}]}, "version": 23}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.1, "step": null, "ts": 1665060379.7623951}]}, "version": 24}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 9.62691879272461, "step": null, "ts": 1665060379.7623951}]}, "version": 25}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060379.7623951}]}, "version": 26}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.1, "step": null, "ts": 1665060389.7649236}]}, "version": 27}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 9.62759017944336, "step": null, "ts": 1665060389.7649236}]}, "version": 28}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060389.7649236}]}, "version": 29}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.2, "step": null, "ts": 1665060399.7674825}]}, "version": 30}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 10.121368408203125, "step": null, "ts": 1665060399.7674825}]}, "version": 31}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060399.7674825}]}, "version": 32}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.2, "step": null, "ts": 1665060409.7707899}]}, "version": 33}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 10.121841430664062, "step": null, "ts": 1665060409.7707899}]}, "version": 34}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060409.7707899}]}, "version": 35}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.1, "step": null, "ts": 1665060419.7734375}]}, "version": 36}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 10.121822357177734, "step": null, "ts": 1665060419.7734375}]}, "version": 37}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060419.7734375}]}, "version": 38}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.1, "step": null, "ts": 1665060429.7758594}]}, "version": 39}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 10.122001647949219, "step": null, "ts": 1665060429.7758594}]}, "version": 40}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060429.7758594}]}, "version": 41}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.1, "step": null, "ts": 1665060439.7783241}]}, "version": 42}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 10.121994018554688, "step": null, "ts": 1665060439.7783241}]}, "version": 43}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060439.7783241}]}, "version": 44}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.1, "step": null, "ts": 1665060449.780828}]}, "version": 45}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 10.121959686279297, "step": null, "ts": 1665060449.780828}]}, "version": 46}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060449.780828}]}, "version": 47}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.1, "step": null, "ts": 1665060459.783239}]}, "version": 48}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 10.121952056884766, "step": null, "ts": 1665060459.783239}]}, "version": 49}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060459.783239}]}, "version": 50}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.1, "step": null, "ts": 1665060469.78568}]}, "version": 51}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 10.121967315673828, "step": null, "ts": 1665060469.78568}]}, "version": 52}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060469.78568}]}, "version": 53}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.2, "step": null, "ts": 1665060479.7882013}]}, "version": 54}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 10.12274169921875, "step": null, "ts": 1665060479.7882013}]}, "version": 55}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060479.7882013}]}, "version": 56}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.2, "step": null, "ts": 1665060489.7906284}]}, "version": 57}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 10.122451782226562, "step": null, "ts": 1665060489.7906284}]}, "version": 58}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060489.7906284}]}, "version": 59}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.2, "step": null, "ts": 1665060499.793089}]}, "version": 60}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 10.122421264648438, "step": null, "ts": 1665060499.793089}]}, "version": 61}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060499.793089}]}, "version": 62}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.1, "step": null, "ts": 1665060509.79558}]}, "version": 63}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 10.122413635253906, "step": null, "ts": 1665060509.79558}]}, "version": 64}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060509.79558}]}, "version": 65}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.1, "step": null, "ts": 1665060519.7980666}]}, "version": 66}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 10.122428894042969, "step": null, "ts": 1665060519.7980666}]}, "version": 67}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060519.7980666}]}, "version": 68}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.2, "step": null, "ts": 1665060529.8005211}]}, "version": 69}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 10.122383117675781, "step": null, "ts": 1665060529.8005211}]}, "version": 70}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060529.8005211}]}, "version": 71}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.2, "step": null, "ts": 1665060539.8029265}]}, "version": 72}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 10.122367858886719, "step": null, "ts": 1665060539.8029265}]}, "version": 73}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060539.8029265}]}, "version": 74}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.1, "step": null, "ts": 1665060549.8053935}]}, "version": 75}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 10.122386932373047, "step": null, "ts": 1665060549.8053935}]}, "version": 76}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060549.8053935}]}, "version": 77}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.1, "step": null, "ts": 1665060559.8078592}]}, "version": 78}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 10.122352600097656, "step": null, "ts": 1665060559.8078592}]}, "version": 79}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060559.8078592}]}, "version": 80}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.1, "step": null, "ts": 1665060569.8103032}]}, "version": 81}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 10.122772216796875, "step": null, "ts": 1665060569.8103032}]}, "version": 82}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060569.8103032}]}, "version": 83}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.2, "step": null, "ts": 1665060579.812822}]}, "version": 84}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 10.122749328613281, "step": null, "ts": 1665060579.812822}]}, "version": 85}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060579.812822}]}, "version": 86}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.1, "step": null, "ts": 1665060589.8152494}]}, "version": 87}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 10.122734069824219, "step": null, "ts": 1665060589.8152494}]}, "version": 88}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060589.8152494}]}, "version": 89}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.1, "step": null, "ts": 1665060599.817784}]}, "version": 90}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 10.122600555419922, "step": null, "ts": 1665060599.817784}]}, "version": 91}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060599.817784}]}, "version": 92}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.2, "step": null, "ts": 1665060609.8202188}]}, "version": 93}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 10.122329711914062, "step": null, "ts": 1665060609.8202188}]}, "version": 94}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060609.8202188}]}, "version": 95}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.2, "step": null, "ts": 1665060619.822626}]}, "version": 96}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 10.122303009033203, "step": null, "ts": 1665060619.822626}]}, "version": 97}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060619.822626}]}, "version": 98}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.1, "step": null, "ts": 1665060629.8251185}]}, "version": 99}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 10.122272491455078, "step": null, "ts": 1665060629.8251185}]}, "version": 100}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060629.8251185}]}, "version": 101}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.1, "step": null, "ts": 1665060639.8275545}]}, "version": 102}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 10.12225341796875, "step": null, "ts": 1665060639.8275545}]}, "version": 103}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060639.8275545}]}, "version": 104}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.1, "step": null, "ts": 1665060649.8299916}]}, "version": 105}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 10.122200012207031, "step": null, "ts": 1665060649.8299916}]}, "version": 106}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060649.8299916}]}, "version": 107}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.1, "step": null, "ts": 1665060659.8324971}]}, "version": 108}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 10.122444152832031, "step": null, "ts": 1665060659.8324971}]}, "version": 109}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060659.8324971}]}, "version": 110}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.1, "step": null, "ts": 1665060669.834901}]}, "version": 111}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 10.122394561767578, "step": null, "ts": 1665060669.834901}]}, "version": 112}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060669.834901}]}, "version": 113}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.1, "step": null, "ts": 1665060679.8373282}]}, "version": 114}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 10.122379302978516, "step": null, "ts": 1665060679.8373282}]}, "version": 115}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060679.8373282}]}, "version": 116}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.1, "step": null, "ts": 1665060689.840453}]}, "version": 117}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 10.122386932373047, "step": null, "ts": 1665060689.840453}]}, "version": 118}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060689.840453}]}, "version": 119}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.1, "step": null, "ts": 1665060699.842858}]}, "version": 120}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 10.122650146484375, "step": null, "ts": 1665060699.842858}]}, "version": 121}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060699.842858}]}, "version": 122}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.1, "step": null, "ts": 1665060709.845306}]}, "version": 123}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 10.144798278808594, "step": null, "ts": 1665060709.845306}]}, "version": 124}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060709.845306}]}, "version": 125}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.1, "step": null, "ts": 1665060719.8476856}]}, "version": 126}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 10.144912719726562, "step": null, "ts": 1665060719.8476856}]}, "version": 127}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060719.8476856}]}, "version": 128}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.2, "step": null, "ts": 1665060729.8501868}]}, "version": 129}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 10.144882202148438, "step": null, "ts": 1665060729.8501868}]}, "version": 130}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060729.8501868}]}, "version": 131}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 0.2, "step": null, "ts": 1665060739.8526726}]}, "version": 132}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 10.144893646240234, "step": null, "ts": 1665060739.8526726}]}, "version": 133}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060739.8526726}]}, "version": 134}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "Exception ignored in: ", "step": null, "ts": 1665060748.6096046}]}, "version": 135}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "<function _MultiProcessingDataLoaderIter.__del__ at 0x7fe7dbb8a040>", "step": null, "ts": 1665060748.6100285}]}, "version": 136}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "\n", "step": null, "ts": 1665060748.6103864}]}, "version": 137}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "Traceback (most recent call last):\n", "step": null, "ts": 1665060748.610721}]}, "version": 138}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "  File \"/home/ahabis/.local/lib/python3.8/site-packages/torch/utils/data/dataloader.py\", line 1328, in __del__\n", "step": null, "ts": 1665060748.611056}]}, "version": 139}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "    ", "step": null, "ts": 1665060748.6410701}]}, "version": 140}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "self._shutdown_workers()", "step": null, "ts": 1665060748.6415296}]}, "version": 141}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "\n", "step": null, "ts": 1665060748.641948}]}, "version": 142}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "  File \"/home/ahabis/.local/lib/python3.8/site-packages/torch/utils/data/dataloader.py\", line 1301, in _shutdown_workers\n", "step": null, "ts": 1665060748.6423547}]}, "version": 143}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "    ", "step": null, "ts": 1665060748.643054}]}, "version": 144}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "w.join(timeout=_utils.MP_STATUS_CHECK_INTERVAL)", "step": null, "ts": 1665060748.6434276}]}, "version": 145}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "\n", "step": null, "ts": 1665060748.6721997}]}, "version": 146}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "  File \"/usr/lib/python3.8/multiprocessing/process.py\", line 149, in join\n", "step": null, "ts": 1665060748.6731055}]}, "version": 147}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "    ", "step": null, "ts": 1665060748.673921}]}, "version": 148}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "res = self._popen.wait(timeout)", "step": null, "ts": 1665060748.6807218}]}, "version": 149}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "\n", "step": null, "ts": 1665060748.7049332}]}, "version": 150}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "  File \"/usr/lib/python3.8/multiprocessing/popen_fork.py\", line 44, in wait\n", "step": null, "ts": 1665060748.705877}]}, "version": 151}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "    ", "step": null, "ts": 1665060748.7069757}]}, "version": 152}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "if not wait([self.sentinel], timeout):", "step": null, "ts": 1665060748.7076743}]}, "version": 153}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "\n", "step": null, "ts": 1665060748.7083359}]}, "version": 154}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "  File \"/usr/lib/python3.8/multiprocessing/connection.py\", line 931, in wait\n", "step": null, "ts": 1665060748.7167807}]}, "version": 155}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "    ", "step": null, "ts": 1665060748.7253704}]}, "version": 156}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "ready = selector.select(timeout)", "step": null, "ts": 1665060748.732837}]}, "version": 157}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "  File \"/usr/lib/python3.8/selectors.py\", line 415, in select\n", "step": null, "ts": 1665060748.7343335}]}, "version": 158}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "    ", "step": null, "ts": 1665060748.7354302}]}, "version": 159}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "fd_event_list = self._selector.poll(timeout)", "step": null, "ts": 1665060748.736169}]}, "version": 160}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "\n", "step": null, "ts": 1665060748.7368557}]}, "version": 161}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "KeyboardInterrupt", "step": null, "ts": 1665060748.7772312}]}, "version": 162}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": ": ", "step": null, "ts": 1665060748.7783468}]}, "version": 163}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "", "step": null, "ts": 1665060748.779187}]}, "version": 164}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "\n", "step": null, "ts": 1665060748.7800388}]}, "version": 165}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "Exception ignored in: ", "step": null, "ts": 1665060748.8787534}]}, "version": 166}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "<function _MultiProcessingDataLoaderIter.__del__ at 0x7fe7dbb8a040>", "step": null, "ts": 1665060748.8796804}]}, "version": 167}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "\n", "step": null, "ts": 1665060748.8803577}]}, "version": 168}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "Traceback (most recent call last):\n", "step": null, "ts": 1665060748.8808641}]}, "version": 169}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "  File \"/home/ahabis/.local/lib/python3.8/site-packages/torch/utils/data/dataloader.py\", line 1328, in __del__\n", "step": null, "ts": 1665060748.881366}]}, "version": 170}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "    ", "step": null, "ts": 1665060748.8823078}]}, "version": 171}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "self._shutdown_workers()", "step": null, "ts": 1665060748.8827665}]}, "version": 172}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "\n", "step": null, "ts": 1665060748.8831985}]}, "version": 173}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "  File \"/home/ahabis/.local/lib/python3.8/site-packages/torch/utils/data/dataloader.py\", line 1301, in _shutdown_workers\n", "step": null, "ts": 1665060748.8836129}]}, "version": 174}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "    ", "step": null, "ts": 1665060748.8863523}]}, "version": 175}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "w.join(timeout=_utils.MP_STATUS_CHECK_INTERVAL)", "step": null, "ts": 1665060748.887461}]}, "version": 176}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "\n", "step": null, "ts": 1665060748.888673}]}, "version": 177}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "  File \"/usr/lib/python3.8/multiprocessing/process.py\", line 149, in join\n", "step": null, "ts": 1665060748.892372}]}, "version": 178}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "    ", "step": null, "ts": 1665060748.9012604}]}, "version": 179}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "res = self._popen.wait(timeout)", "step": null, "ts": 1665060748.902681}]}, "version": 180}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "\n", "step": null, "ts": 1665060748.913358}]}, "version": 181}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "  File \"/usr/lib/python3.8/multiprocessing/popen_fork.py\", line 44, in wait\n", "step": null, "ts": 1665060748.9143438}]}, "version": 182}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "    ", "step": null, "ts": 1665060748.9252565}]}, "version": 183}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "if not wait([self.sentinel], timeout):", "step": null, "ts": 1665060748.9418423}]}, "version": 184}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "\n", "step": null, "ts": 1665060748.942927}]}, "version": 185}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "  File \"/usr/lib/python3.8/multiprocessing/connection.py\", line 931, in wait\n", "step": null, "ts": 1665060748.9437766}]}, "version": 186}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "    ", "step": null, "ts": 1665060748.945488}]}, "version": 187}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "ready = selector.select(timeout)", "step": null, "ts": 1665060748.9465587}]}, "version": 188}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "\n", "step": null, "ts": 1665060748.9474998}]}, "version": 189}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "  File \"/usr/lib/python3.8/selectors.py\", line 415, in select\n", "step": null, "ts": 1665060748.948375}]}, "version": 190}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "    ", "step": null, "ts": 1665060748.9495828}]}, "version": 191}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "fd_event_list = self._selector.poll(timeout)", "step": null, "ts": 1665060748.9504445}]}, "version": 192}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "\n", "step": null, "ts": 1665060748.951215}]}, "version": 193}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "KeyboardInterrupt", "step": null, "ts": 1665060748.9520595}]}, "version": 194}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": ": ", "step": null, "ts": 1665060748.9529078}]}, "version": 195}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "", "step": null, "ts": 1665060748.9536715}]}, "version": 196}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "\n", "step": null, "ts": 1665060748.9548807}]}, "version": 197}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "Exception ignored in: ", "step": null, "ts": 1665060749.02681}]}, "version": 198}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "<function _MultiProcessingDataLoaderIter.__del__ at 0x7fe7dbb8a040>", "step": null, "ts": 1665060749.027422}]}, "version": 199}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "\n", "step": null, "ts": 1665060749.0282946}]}, "version": 200}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "Traceback (most recent call last):\n", "step": null, "ts": 1665060749.0287862}]}, "version": 201}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "  File \"/home/ahabis/.local/lib/python3.8/site-packages/torch/utils/data/dataloader.py\", line 1328, in __del__\n", "step": null, "ts": 1665060749.0298164}]}, "version": 202}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "    ", "step": null, "ts": 1665060749.030867}]}, "version": 203}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "self._shutdown_workers()", "step": null, "ts": 1665060749.0313625}]}, "version": 204}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "\n", "step": null, "ts": 1665060749.033365}]}, "version": 205}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "  File \"/home/ahabis/.local/lib/python3.8/site-packages/torch/utils/data/dataloader.py\", line 1301, in _shutdown_workers\n", "step": null, "ts": 1665060749.034308}]}, "version": 206}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "    ", "step": null, "ts": 1665060749.035993}]}, "version": 207}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "w.join(timeout=_utils.MP_STATUS_CHECK_INTERVAL)", "step": null, "ts": 1665060749.0367832}]}, "version": 208}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "\n", "step": null, "ts": 1665060749.037427}]}, "version": 209}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "  File \"/usr/lib/python3.8/multiprocessing/process.py\", line 149, in join\n", "step": null, "ts": 1665060749.0380378}]}, "version": 210}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "    ", "step": null, "ts": 1665060749.0395522}]}, "version": 211}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "res = self._popen.wait(timeout)", "step": null, "ts": 1665060749.0413215}]}, "version": 212}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "\n", "step": null, "ts": 1665060749.042116}]}, "version": 213}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "  File \"/usr/lib/python3.8/multiprocessing/popen_fork.py\", line 44, in wait\n", "step": null, "ts": 1665060749.0428414}]}, "version": 214}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "    ", "step": null, "ts": 1665060749.043766}]}, "version": 215}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "if not wait([self.sentinel], timeout):", "step": null, "ts": 1665060749.0445879}]}, "version": 216}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "\n", "step": null, "ts": 1665060749.0452003}]}, "version": 217}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "  File \"/usr/lib/python3.8/multiprocessing/connection.py\", line 931, in wait\n", "step": null, "ts": 1665060749.0463555}]}, "version": 218}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "    ", "step": null, "ts": 1665060749.0473955}]}, "version": 219}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "ready = selector.select(timeout)", "step": null, "ts": 1665060749.0483134}]}, "version": 220}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "\n", "step": null, "ts": 1665060749.049191}]}, "version": 221}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "  File \"/usr/lib/python3.8/selectors.py\", line 415, in select\n", "step": null, "ts": 1665060749.0504344}]}, "version": 222}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "    ", "step": null, "ts": 1665060749.051528}]}, "version": 223}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "fd_event_list = self._selector.poll(timeout)", "step": null, "ts": 1665060749.0522327}]}, "version": 224}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "\n", "step": null, "ts": 1665060749.0529463}]}, "version": 225}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "  File \"/home/ahabis/.local/lib/python3.8/site-packages/torch/utils/data/_utils/signal_handling.py\", line 66, in handler\n", "step": null, "ts": 1665060749.0536199}]}, "version": 226}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "    ", "step": null, "ts": 1665060749.0549583}]}, "version": 227}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "_error_if_any_worker_fails()", "step": null, "ts": 1665060749.055577}]}, "version": 228}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "\n", "step": null, "ts": 1665060749.0561194}]}, "version": 229}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "RuntimeError", "step": null, "ts": 1665060749.0566576}]}, "version": 230}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": ": ", "step": null, "ts": 1665060749.0571039}]}, "version": 231}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "DataLoader worker (pid 26594) exited unexpectedly with exit code 1. Details are lost due to multiprocessing. Rerunning with num_workers=0 may give better error trace.", "step": null, "ts": 1665060749.0581348}]}, "version": 232}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "\n", "step": null, "ts": 1665060749.0595758}]}, "version": 233}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "Exception ignored in sys.unraisablehook", "step": null, "ts": 1665060749.0653653}]}, "version": 234}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": ": ", "step": null, "ts": 1665060749.0664747}]}, "version": 235}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "<built-in function unraisablehook>", "step": null, "ts": 1665060749.0672493}]}, "version": 236}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "\n", "step": null, "ts": 1665060749.067943}]}, "version": 237}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "Traceback (most recent call last):\n", "step": null, "ts": 1665060749.068773}]}, "version": 238}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "  File \"/usr/local/lib/python3.8/dist-packages/ipykernel/iostream.py\", line 347, in flush\n", "step": null, "ts": 1665060749.0696476}]}, "version": 239}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "    ", "step": null, "ts": 1665060749.0898438}]}, "version": 240}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "self.pub_thread.schedule(evt.set)", "step": null, "ts": 1665060749.0927072}]}, "version": 241}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "\n", "step": null, "ts": 1665060749.0935695}]}, "version": 242}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "  File \"/usr/local/lib/python3.8/dist-packages/ipykernel/iostream.py\", line 203, in schedule\n", "step": null, "ts": 1665060749.102051}]}, "version": 243}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "    ", "step": null, "ts": 1665060749.1031811}]}, "version": 244}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "self._event_pipe.send(b'')", "step": null, "ts": 1665060749.103719}]}, "version": 245}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "\n", "step": null, "ts": 1665060749.104696}]}, "version": 246}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "  File \"/usr/local/lib/python3.8/dist-packages/zmq/sugar/socket.py\", line 547, in send\n", "step": null, "ts": 1665060749.1052406}]}, "version": 247}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "    ", "step": null, "ts": 1665060749.1059287}]}, "version": 248}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "return super(Socket, self).send(data, flags=flags, copy=copy, track=track)", "step": null, "ts": 1665060749.1065853}]}, "version": 249}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "\n", "step": null, "ts": 1665060749.1069562}]}, "version": 250}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "  File \"zmq/backend/cython/socket.pyx\", line 718, in zmq.backend.cython.socket.Socket.send\n", "step": null, "ts": 1665060749.1073089}]}, "version": 251}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "  File \"zmq/backend/cython/socket.pyx\", line 765, in zmq.backend.cython.socket.Socket.send\n", "step": null, "ts": 1665060749.1087132}]}, "version": 252}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "  File \"zmq/backend/cython/socket.pyx\", line 247, in zmq.backend.cython.socket._send_copy\n", "step": null, "ts": 1665060749.1091402}]}, "version": 253}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "  File \"zmq/backend/cython/socket.pyx\", line 242, in zmq.backend.cython.socket._send_copy\n", "step": null, "ts": 1665060749.1095314}]}, "version": 254}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "  File \"zmq/backend/cython/checkrc.pxd\", line 13, in zmq.backend.cython.checkrc._check_rc\n", "step": null, "ts": 1665060749.109871}]}, "version": 255}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "  File \"/home/ahabis/.local/lib/python3.8/site-packages/torch/utils/data/_utils/signal_handling.py\", line 66, in handler\n", "step": null, "ts": 1665060749.1103826}]}, "version": 256}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "    ", "step": null, "ts": 1665060749.110737}]}, "version": 257}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "_error_if_any_worker_fails()", "step": null, "ts": 1665060749.1110063}]}, "version": 258}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "\n", "step": null, "ts": 1665060749.1112738}]}, "version": 259}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "RuntimeError", "step": null, "ts": 1665060749.1116214}]}, "version": 260}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": ": ", "step": null, "ts": 1665060749.1119566}]}, "version": 261}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "DataLoader worker (pid 26010) exited unexpectedly with exit code 1. Details are lost due to multiprocessing. Rerunning with num_workers=0 may give better error trace.", "step": null, "ts": 1665060749.1122491}]}, "version": 262}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "\n", "step": null, "ts": 1665060749.1126258}]}, "version": 263}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stdout"], "values": [{"value": "b'https://app.neptune.ai/antoine.habis.tlcm/Scribble/e/SCRIB-15\\n'", "step": null, "ts": 1665060749.1472561}]}, "version": 264}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stdout"], "values": [{"value": "b''", "step": null, "ts": 1665060749.157974}]}, "version": 265}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stdout"], "values": [{"value": "b'Remember to stop your run once you\\xe2\\x80\\x99ve finished logging your metadata (https://docs.neptune.ai/api-reference/run#.stop). It will be stopped automatically only when the notebook kernel/interactive console is terminated.\\n'", "step": null, "ts": 1665060749.158679}]}, "version": 266}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "cpu"], "values": [{"value": 63.4, "step": null, "ts": 1665060749.8551378}]}, "version": 267}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "memory"], "values": [{"value": 6.896602630615234, "step": null, "ts": 1665060749.8551378}]}, "version": 268}
+{"obj": {"type": "LogFloats", "path": ["monitoring", "gpu_memory"], "values": [{"value": 2.46807861328125, "step": null, "ts": 1665060749.8551378}]}, "version": 269}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stdout"], "values": [{"value": "b'Shutting down background jobs, please wait a moment...\\n'", "step": null, "ts": 1665060753.4705334}]}, "version": 270}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stdout"], "values": [{"value": "b'Done!\\n'", "step": null, "ts": 1665060753.4847422}]}, "version": 271}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stderr"], "values": [{"value": "Waiting for the remaining 15 operations to synchronize with Neptune. Do not kill this process.\n", "step": null, "ts": 1665060753.4946847}]}, "version": 272}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stdout"], "values": [{"value": "b'All 15 operations synced, thanks for waiting!\\n'", "step": null, "ts": 1665060753.637168}]}, "version": 273}
+{"obj": {"type": "LogStrings", "path": ["monitoring", "stdout"], "values": [{"value": "b'Shutting down background jobs, please wait a moment...\\n'", "step": null, "ts": 1665060753.6389415}]}, "version": 274}
