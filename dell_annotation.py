@@ -1,4 +1,3 @@
-
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
@@ -19,19 +18,18 @@ logging.basicConfig()
 logger = logging.getLogger("cytomine.client")
 logger.setLevel(logging.INFO)
 
-def delete_annotations(id_image ,id_project):
 
-    pb_key = '868c4bac-e5b8-4758-9b4a-2980571c6bb2'
-    pv_key = '1476d15a-ec6e-48e0-95ea-d45a0ab0ff94'
-    host = 'https://nsclc.cytomine.com/'
-    
+def delete_annotations(id_image, id_project):
+    pb_key = "868c4bac-e5b8-4758-9b4a-2980571c6bb2"
+    pv_key = "1476d15a-ec6e-48e0-95ea-d45a0ab0ff94"
+    host = "https://nsclc.cytomine.com/"
+
     with Cytomine(host=host, public_key=pb_key, private_key=pv_key) as cytomine:
-
         # Get the list of annotations
         annotations = AnnotationCollection()
         annotations.image = id_image
-        annotations.project =id_project
+        annotations.project = id_project
         annotations.fetch()
         for annotation in annotations:
             annotation.delete()
-    return 'You deleted all the annnotations'
+    return "You deleted all the annnotations"

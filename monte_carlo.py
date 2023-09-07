@@ -1,6 +1,10 @@
 from config import *
 from generator_predict import *
 
+
+
+
+
 Image.MAX_IMAGE_PIXELS = 1e11
 
 def enable_dropout(model):
@@ -11,7 +15,6 @@ def enable_dropout(model):
 
 
 model.load_state_dict(torch.load(os.path.join(path_weights,'weights'+str(percentage_scribbled_regions))))
-
 class Monte_carlo_model(torch.nn.Module):
 
     def __init__(self,
@@ -31,7 +34,7 @@ class Monte_carlo_model(torch.nn.Module):
         x_features = self.model.vgg16.classifier[0](x_features)
         predictions  = []
 
-        for i in range(self.n_passes):
+é        for i in range(self.n_passes):
     
             pred = self.model.vgg16.classifier[1:](x_features)  ## 4096
             pred = self.model.relu(pred)
@@ -43,12 +46,14 @@ class Monte_carlo_model(torch.nn.Module):
         return x_features, predictions
             
 mc_model = Monte_carlo_model(model = model,
-                             n_passes = 20)
+                             n_passes = n_passes)
 mc_model.cuda()
 
 
 
-def evaluate(model, val_dl):
+def evaluate(model,
+            val_dl):
+
     # --- EVALUATE ON VALIDATION SET -------------------------------------
     model.eval()
     model.cuda()
@@ -76,7 +81,7 @@ filenames = os.listdir(path_slide_tumor_test)
 
 for filename in tqdm(filenames[16:]):
     
-    # print('processing image {} ....'.format(filename))
+    print('processing image {} ....'.format(filename))
     
     # # """ predicts the first heatmap values and features of the model """
     
@@ -123,8 +128,6 @@ for filename in tqdm(filenames[16:]):
     
     print('retrieving labels from mask ...')
 
-
-    
     path_patches = os.path.join(path_patches_test,filename)
     path_pf = os.path.join(path_prediction_features,filename)
     path_mask= os.path.join(path_slide_true_masks,new_filename)
