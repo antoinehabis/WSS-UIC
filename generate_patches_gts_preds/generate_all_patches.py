@@ -1,6 +1,6 @@
 import sys
-import pathlib
-sys.path.append(pathlib.Path(__file__).parent.parent)
+from pathlib import Path
+sys.path.append(Path(__file__).resolve().parent.parent)
 from wsitools.tissue_detection.tissue_detector import TissueDetector
 from wsitools.patch_extraction.patch_extractor import (
     ExtractorParameters,
@@ -28,7 +28,7 @@ abs_path_folders = [os.path.join(path_patches_test, u) for u in folders]
 
 for u in abs_path_folders:
     if not os.path.exists(u):
-        os.makedirs(u, 0o0777)
+        os.makedirs(u)
 
 
 output_dir = path_patches_test  # Define an output directory

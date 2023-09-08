@@ -1,12 +1,10 @@
-import sys
-import pathlib
-
-sys.path.append(pathlib.Path(__file__).parent.parent)
-
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
+
+from pathlib import Path
+sys.path.append(Path(__file__).resolve().parent.parent)
 
 import logging
 from argparse import ArgumentParser

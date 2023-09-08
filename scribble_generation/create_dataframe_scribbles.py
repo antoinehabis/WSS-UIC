@@ -1,6 +1,6 @@
 import sys
-import pathlib
-sys.path.append(pathlib.Path(__file__).parent.parent)
+from pathlib import Path
+sys.path.append(Path(__file__).resolve().parent.parent)
 from config import *
 from scribble_inside_shape import  *
 import warnings
@@ -66,4 +66,7 @@ for filename in tqdm(dic.keys()):
         for i in range(scribble_healthy.shape[0]):
             df = df.append({'wsi':filename, 'point':scribble_healthy[i],'class':0}, ignore_index=True)
 
+if not os.path.exists(path_dataframe):
+    os.makedirs(path_dataframe)
+    
 df.to_csv(path_dataframe) 

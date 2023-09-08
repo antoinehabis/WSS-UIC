@@ -1,6 +1,6 @@
 import sys
-import pathlib
-sys.path.append(pathlib.Path(__file__).parent.parent)
+from pathlib import Path
+sys.path.append(Path(__file__).resolve().parent.parent)
 import logging
 from argparse import ArgumentParser
 from shapely.geometry import Point, Polygon, MultiPoint, LineString
@@ -8,6 +8,7 @@ from cytomine import Cytomine
 from cytomine.models import Annotation, AnnotationTerm, AnnotationCollection
 from scipy.interpolate import interp1d
 from config import *
+from openslide import OpenSlide
 
 
 logging.basicConfig()

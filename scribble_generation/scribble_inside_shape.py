@@ -1,6 +1,6 @@
 import sys
-import pathlib
-sys.path.append(pathlib.Path(__file__).parent.parent)
+from pathlib import Path
+sys.path.append(Path(__file__).resolve().parent.parent)
 import xml.etree.ElementTree as ET
 import networkx as nx
 import geopandas as gpd
@@ -12,7 +12,7 @@ from scipy.interpolate import interp1d
 import warnings
 import pandas as pd
 import numpy as np
-import matplolib.pyplot as plt
+import matplotlib.pyplot as plt
 from config import *
 
 warnings.filterwarnings("ignore")

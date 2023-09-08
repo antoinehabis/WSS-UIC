@@ -1,6 +1,6 @@
 import sys
-import pathlib
-sys.path.append(pathlib.Path(__file__).parent.parent)
+from pathlib import Path
+sys.path.append(pathlib.Path(__file__).resolve().parent.parent)
 from config import *
 from multiprocessing import Pool
 from wsitools.patch_reconstruction.save_wsi_downsampled import SubPatches2BigTiff
@@ -10,8 +10,10 @@ filename = "test_001"
 path_patches = os.path.join(path_patches_test, filename)
 new_filename = filename.replace("_", "")
 path_pp = os.path.join(path_prediction_patches, new_filename)
+
 if not os.path.exists(path_pp):
     os.makedirs(path_pp)
+
 path_pf = os.path.join(
     os.path.join(path_prediction_features, filename), "predictions.npy"
 )
@@ -37,6 +39,8 @@ preds = np.mean(np.squeeze(np.load(path_pf)), 0)
 #     pool.map(create_heatmap, zip(filenames, i_s))
 # print('stitching patches together and creating heatmap...')
 
+if not os.path.exists(path_heatmaps):
+    os.makedirs(path_heatmaps)
 
 sub = SubPatches2BigTiff(
     patch_dir=path_pp,

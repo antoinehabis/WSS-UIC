@@ -1,6 +1,6 @@
 import sys
-import pathlib
-sys.path.append(pathlib.Path(__file__).parent.parent)
+from pathlib import Path
+sys.path.append(Path(__file__).resolve().parent.parent)
 from config import *
 from generator_predict import *
 from PIL import Image
@@ -103,8 +103,7 @@ def evaluate(model,
 
 filenames = os.listdir(path_slide_tumor_test)
 
-
-for filename in tqdm(filenames[16:]):
+for filename in tqdm(filenames):
     
     print('processing image {} ....'.format(filename))
     
@@ -133,7 +132,7 @@ for filename in tqdm(filenames[16:]):
     path_pf = os.path.join(path_prediction_features,filename)
 
     if not os.path.exists(path_pf):
-        os.makedirs(path_pf, 0o0777)
+        os.makedirs(path_pf)
 
     path_mask= os.path.join(path_slide_true_masks,new_filename)
     mask_png = os.path.join(path_mask,os.listdir(path_mask)[0])

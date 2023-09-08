@@ -1,7 +1,6 @@
 import sys
-import pathlib
-
-sys.path.append(pathlib.Path(__file__).parent.parent)
+from pathlib import Path
+sys.path.append(Path(__file__).resolve().parent.parent)
 from config import *
 from PIL import ImageFile
 from multiprocessing import Pool
@@ -10,7 +9,6 @@ import pandas as pd
 import numpy as np
 from openslide import OpenSlide
 from tqdm import tqdm
-
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 
@@ -27,7 +25,9 @@ else:
     path_dataframe = path_dataframe_test
 
 
-dataframe = pd.read_csv(path_dataframe, index_col=0)
+if not os.path.exists(path_patches):
+   os.makedirs(path_patches)
+
 
 # #### CREATE DATASET FROM slides
 

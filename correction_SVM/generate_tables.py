@@ -1,6 +1,7 @@
 import sys
-import pathlib
-sys.path.append(pathlib.Path(__file__).parent.parent)
+from pathlib import Path
+sys.path.append(Path(__file__).resolve().parent.parent)
+
 from config import *
 from uncertainty_metrics import *
 from iteration_correction import *

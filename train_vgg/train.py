@@ -1,15 +1,16 @@
 import sys
-import pathlib
-sys.path.append(pathlib.Path(__file__).parent.parent)
+from pathlib import Path
+sys.path.append(Path(__file__).resolve().parent.parent)
 from config import *
 import neptune.new as neptune
 from generator import *
-import torchstain
 from torchmetrics.functional import precision_recall
 from PIL import ImageFile
-import torchvision
+from torchvision.transforms import Normalize
+import torch
+from torchvision.models import vgg16
 
-normalize = torchvision.transforms.Normalize(
+normalize = Normalize(
     mean=(0.485, 0.456, 0.406), std=(0.229, 0.224, 0.225)
 )
 
@@ -31,9 +32,9 @@ class VGG16(torch.nn.Module):
         return x3
 
 
-new_model = model
+model = VGG16(vgg16(pretrained=False)).cuda()
 
-optimizer = torch.optim.Adam(new_model.parameters(), lr=1e-4)
+optimizer = torch.optim.Adam(model.parameters(), lr=1e-4)
 scheduler = torch.optim.lr_scheduler.ExponentialLR(optimizer, gamma=0.9)
 loss = torch.nn.BCELoss(reduction="mean")
 
@@ -95,6 +96,9 @@ def train(model, optimizer, train_dl, val_dl, epochs=100, loss=loss):
             if torch.gt(tmp, mean):
                 print("the val loss decreased: saving the model...")
                 tmp = mean
+                if not os.path.exists(path_weights):
+                    os.makedirs(path_weights)
+
                 torch.save(
                     model.state_dict(),
                     os.path.join(
@@ -105,7 +109,7 @@ def train(model, optimizer, train_dl, val_dl, epochs=100, loss=loss):
 
 
 train(
-    new_model,
+    model,
     optimizer,
     dataloaders["train"],
     dataloaders["test"],
