@@ -1,3 +1,6 @@
+import sys
+import pathlib
+sys.path.append(pathlib.Path(__file__).parent.parent)
 from wsitools.tissue_detection.tissue_detector import TissueDetector
 from wsitools.patch_extraction.patch_extractor import (
     ExtractorParameters,

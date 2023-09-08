@@ -1,3 +1,6 @@
+import sys
+import pathlib
+sys.path.append(pathlib.Path(__file__).parent.parent)
 import xml.etree.ElementTree as ET
 import networkx as nx
 import geopandas as gpd

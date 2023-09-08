@@ -1,3 +1,7 @@
+import sys
+import pathlib
+
+sys.path.append(pathlib.Path(__file__).parent.parent)
 from config import *
 from PIL import ImageFile
 from multiprocessing import Pool
@@ -6,6 +10,7 @@ import pandas as pd
 import numpy as np
 from openslide import OpenSlide
 from tqdm import tqdm
+
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 

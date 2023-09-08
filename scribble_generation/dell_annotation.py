@@ -1,10 +1,14 @@
+import sys
+import pathlib
+
+sys.path.append(pathlib.Path(__file__).parent.parent)
+
 from __future__ import absolute_import
 from __future__ import division
 from __future__ import print_function
 from __future__ import unicode_literals
 
 import logging
-import sys
 from argparse import ArgumentParser
 
 from shapely.geometry import Point, box

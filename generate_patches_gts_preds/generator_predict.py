@@ -1,3 +1,6 @@
+import sys
+import pathlib
+sys.path.append(pathlib.Path(__file__).parent.parent)
 from torch.utils.data import Dataset, DataLoader
 from config import *
 from PIL import ImageFile, Image

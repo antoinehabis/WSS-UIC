@@ -1,3 +1,6 @@
+import sys
+import pathlib
+sys.path.append(pathlib.Path(__file__).parent.parent)
 from config import *
 from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms
