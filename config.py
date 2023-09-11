@@ -2,6 +2,7 @@ import os
 
 path_camelyon = "/home/ahabis/sshfs/CAMELYON"
 
+
 path_slide_tumor_train = os.path.join(path_camelyon, "train/tumor")
 path_slide_tumor_test = os.path.join(path_camelyon, "test/tumor")
 path_annotations_train = os.path.join(path_camelyon, "annotations")
@@ -22,14 +23,12 @@ path_uncertainty_maps = os.path.join(path_preds, "uncertainty_maps")
 path_heatmaps = os.path.join(path_preds, "heatmaps")
 path_metric_tables = os.path.join(path_preds, "metric_tables")
 path_weights = os.path.join(path_preds, "weights")
-
-
+path_prediction_patches = os.path.join(path_preds, 'patches_prediction')
 
 
 
 optimal_threshold = 0.33
 percentage_scribbled_regions = 0.1
-
 ov = 0.5 #### overlap
 ps = 512 #### patch_size
 bs = 16 #### batch_size

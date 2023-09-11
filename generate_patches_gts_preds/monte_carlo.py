@@ -110,8 +110,7 @@ for filename in tqdm(filenames):
     # # """ predicts the first heatmap values and features of the model """
     
     
-    filename = filename[:-4]
-    new_filename = filename.replace('_','')
+    filename = filename.split('.')[0]
     rename_dir = os.path.join(path_patches_test, filename)
     dataset_test = CustomImageDataset(path_image = rename_dir)   
     loader_test = DataLoader(
@@ -134,14 +133,12 @@ for filename in tqdm(filenames):
     if not os.path.exists(path_pf):
         os.makedirs(path_pf)
 
-    path_mask= os.path.join(path_slide_true_masks,new_filename)
-    mask_png = os.path.join(path_mask,os.listdir(path_mask)[0])
+    path_mask= os.path.join(path_slide_true_masks,filename+'tif')
 
     # # """ saves the predictions and features of each patch of the image"""
     
     print('saving labels & features...')
 
-    
     np.save(os.path.join(path_pf, 'predictions.npy'), predictions_new)
     np.save(os.path.join(path_pf, 'features.npy'), all_features_new)
     
@@ -154,10 +151,7 @@ for filename in tqdm(filenames):
 
     path_patches = os.path.join(path_patches_test,filename)
     path_pf = os.path.join(path_prediction_features,filename)
-    path_mask= os.path.join(path_slide_true_masks,new_filename)
-    mask_png = os.path.join(path_mask,os.listdir(path_mask)[0])
-
-    img = Image.open(mask_png)
+    img = tifffile.imread(path_mask)
     img_arr = np.asarray(img)
     files = os.listdir(path_patches)
     true_vals = np.zeros(len(files))
@@ -179,9 +173,8 @@ for filename in tqdm(filenames):
             true_vals[i] = 1
         else: 
             true_vals[i] = 0
-
+            
     np.save(os.path.join(path_pf,'trues.npy'), np.array(true_vals))
-
     del true_vals
     del img_arr
 
