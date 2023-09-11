@@ -1,6 +1,6 @@
 import sys
 from pathlib import Path
-sys.path.append(Path(__file__).resolve().parent.parent)
+sys.path.append(str(Path(__file__).resolve().parent.parent))
 from config import *
 from multiprocessing import Pool
 from wsitools.patch_reconstruction.save_wsi_downsampled import SubPatches2BigTiff

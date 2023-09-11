@@ -1,7 +1,6 @@
 import sys
 from pathlib import Path
-print(Path(__file__).resolve().parent.parent)
-sys.path.append(Path(__file__).resolve().parent.parent)
+sys.path.append(str(Path(__file__).resolve().parent.parent))
 
 from config import *
 from scribble_inside_shape import Scribble

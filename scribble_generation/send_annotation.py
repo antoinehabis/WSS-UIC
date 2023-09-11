@@ -1,6 +1,6 @@
 import sys
 from pathlib import Path
-sys.path.append(Path(__file__).resolve().parent.parent)
+sys.path.append(str(Path(__file__).resolve().parent.parent))
 import logging
 from argparse import ArgumentParser
 from shapely.geometry import Point, Polygon, MultiPoint, LineString

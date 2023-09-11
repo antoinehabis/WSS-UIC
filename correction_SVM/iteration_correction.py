@@ -1,6 +1,6 @@
 import sys
 from pathlib import Path
-sys.path.append(Path(__file__).resolve().parent.parent)
+sys.path.append(str(Path(__file__).resolve().parent.parent))
 from config import *
 from sklearn.linear_model import SGDClassifier
 from sklearn.decomposition import PCA
