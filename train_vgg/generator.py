@@ -4,7 +4,9 @@ sys.path.append(str(Path(__file__).resolve().parent.parent))
 from config import *
 from torch.utils.data import Dataset, DataLoader
 from torchvision import transforms
-from PIL import ImageFile
+from PIL import ImageFile, Image
+import pandas as pd
+import numpy as np
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
