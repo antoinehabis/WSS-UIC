@@ -21,9 +21,17 @@ parser.add_argument(
     help="Select the train/test split you want to generate scribbles on .",
     type=str,
 )
-args = parser.parse_args()
 
+parser.add_argument(
+    "-p",
+    "--percentage_scribbled_regions",
+    help="Select the percentage of scribble regions to scribble",
+    type=float,
+    default=percentage_scribbled_regions,
+)
+args = parser.parse_args()
 split = args.split
+percentage_scribbled_regions = args.percentage_scribbled_regions
 
 if split == "train":
     path_slide = path_slide_tumor_train
@@ -38,6 +46,8 @@ dic = {}
 
 
 for i, filename in enumerate(tqdm(os.listdir(path_slide))):
+    ### Go through all the slides to create healthy and tumor scribbles
+
     path_image = os.path.join(path_slide, filename)
     (
         annotations_tumor,
@@ -47,8 +57,9 @@ for i, filename in enumerate(tqdm(os.listdir(path_slide))):
     ) = get_scribbles_and_annotations(path_image, split)
     dic[filename] = [scribbles_tumor, scribble_healthy, annotations_tumor]
 
-    ###### SELECT x% of tumor regions ######
+    ###### SELECT percentage_scribbled_regions% of tumor regions ######
     ###### Remove scribble Healthy on tumor regions ######
+
     if dic[filename][1] is not None:
         n = dic[filename][1].shape[0]
         bool_filename = np.ones(n)
@@ -65,9 +76,8 @@ for i, filename in enumerate(tqdm(os.listdir(path_slide))):
                     bool_filename[i] = 0
                     break
         dic[filename][1] = dic[filename][1][bool_filename.astype(bool)]
-        args = np.flip(np.argsort(areas))[
-            : np.minimum(int(percentage_scribbled_regions * n_tumor) + 1, 10)
-        ]
+
+        args = np.flip(np.argsort(areas))[: int(percentage_scribbled_regions * n_tumor)]
         dic[filename][0] = [dic[filename][0][u] for u in args]
 
 
@@ -87,8 +97,6 @@ for filename in tqdm(dic.keys()):
                 {"wsi": filename, "point": scribble_healthy[i], "class": 0},
                 ignore_index=True,
             )
-
 if not os.path.exists(path_dataframe):
     os.makedirs(path_dataframe)
-
 df.to_csv(path_dataframe)

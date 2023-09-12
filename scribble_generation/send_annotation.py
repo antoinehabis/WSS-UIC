@@ -9,7 +9,7 @@ from cytomine.models import Annotation, AnnotationTerm, AnnotationCollection
 from scipy.interpolate import interp1d
 from config import *
 from openslide import OpenSlide
-
+import numpy as np
 
 logging.basicConfig()
 logger = logging.getLogger("cytomine.client")
@@ -26,7 +26,7 @@ class Send:
         else:
             self.path_image = path_slide_tumor_test
 
-        img = OpenSlide(os.path.join(self.path_image, self.filename) + ".tif")
+        img = OpenSlide(os.path.join(self.path_image, self.filename))
         self.dim = img.dimensions[1]
 
     def delete_loops(self, shape):

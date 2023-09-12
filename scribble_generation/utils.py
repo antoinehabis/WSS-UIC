@@ -50,18 +50,20 @@ def get_scribbles_and_annotations(path_image, split):
 
     annotation_healthy = contours[r] * sf
 
-    s = Scribble(filename.split(".")[0], percent=1.0, split=split)
+    s = Scribble(filename.split(".")[0], percent=0.0, split=split)
     ### Extract the contours of all the tumor annotations
     dataframe_annotation = s.create_dataframe_annotations()
 
-    ### For all the annotations: generate a scribble inside the annotation
+    ### For all the tumor annotations: generate a scribble inside the annotation
     scribbles_tumor = []
     annotations_tumor = []
 
     for annotation_id in tqdm(list(dataframe_annotation.columns)):
-        scribble_tumor, annotation, _, _ = s.scribble(
-            dataframe_annotation[annotation_id]
-        )
+        annotation_contour = dataframe_annotation[annotation_id]
+        annotation_contour = annotation_contour[~annotation_contour.isnull()]
+        contour_tissue = np.vstack(annotation_contour.to_numpy())
+
+        scribble_tumor, annotation, _, _ = s.scribble(contour_tissue)
 
         if scribble_tumor is not (None):
             scribble_tumor = scribble_tumor
@@ -69,9 +71,9 @@ def get_scribbles_and_annotations(path_image, split):
             annotation = np.expand_dims(annotation, axis=1)
             annotations_tumor.append(annotation)
             scribbles_tumor.append(scribble_tumor)
-    try:
-        scribble_healthy, _, _, _ = s.scribble(annotation_healthy.squeeze())[0]
-    except:
-        scribble_healthy = None
+
+    ### Generate a scribble in a healthy region
+    scribble_healthy, _, _, _ = s.scribble(annotation_healthy.squeeze())
+
 
     return (annotations_tumor, scribbles_tumor, annotation_healthy, scribble_healthy)

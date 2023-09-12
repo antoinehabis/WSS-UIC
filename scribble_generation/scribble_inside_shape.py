@@ -271,9 +271,7 @@ class Scribble:
         """
 
         #### We only select ni = 20 points on the contour of the annotation
-
-        annotation = annotation[~annotation.isnull()]
-        arr = np.vstack(annotation.to_numpy())
+        arr = annotation
         length = arr.shape[0]
         ni = 15
 
