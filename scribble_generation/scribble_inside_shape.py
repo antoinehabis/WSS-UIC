@@ -22,12 +22,11 @@ warnings.filterwarnings("ignore")
 
 class Scribble:
     def __init__(
-        self, filename, percent, split, interpolation_method="cubic", show=False
+        self, filename, percent, split, show=False
     ):
         self.split = split
         self.filename = filename
         self.percent = percent
-        self.interpolation_method = interpolation_method
         self.show = show
         self.path_camelyon = path_camelyon
 
@@ -202,24 +201,13 @@ class Scribble:
 
     def interpolation_points_scribble(self, coordinates, contour, nb_):
         contour = np.vstack(np.array(contour))
-        # Define some points:
-        points = coordinates
-        if points.shape[0] < 5:
-            self.interpolation_method = "linear"
-        else:
-            self.interpolation_method = "cubic"
         # Linear length along the line:
-        distance = np.cumsum(np.sqrt(np.sum(np.diff(points, axis=0) ** 2, axis=1)))
+        distance = np.cumsum(np.sqrt(np.sum(np.diff(coordinates, axis=0) ** 2, axis=1)))
         distance = np.insert(distance, 0, 0) / distance[-1]
-
         # Interpolation for different methods:
-        interpolation_method = self.interpolation_method
-
         alpha = np.linspace(0, 1, nb_)
-        interpolated_points = {}
-        interpolator = CubicSpline(distance, points) 
-            
-        interpolated_points[self.interpolation_method] = interpolator(alpha)
+        interpolator = CubicSpline(distance, coordinates) 
+        interpolated_points = interpolator(alpha)
         return interpolated_points, contour
 
     # def scribble_tumor(self, annotation, ps=512, ov=0.8, nb_=10000):
@@ -272,7 +260,7 @@ class Scribble:
     #     except:
     #         return None, None
 
-    def scribble_healthy(self, annotation, ps=ps, ov=0.8):
+    def scribble(self, annotation, ps=ps, ov=0.8):
         
         """
         Input: the annotation of the healthy or tumor region
@@ -326,8 +314,7 @@ class Scribble:
         interpolated_points, contour = self.interpolation_points_scribble(
             coordinates, downsample, nb_=10000
         )
-        arr = interpolated_points[self.interpolation_method]
-
+        arr = interpolated_points
         nb = arr.shape[0]
         remove = int((nb * self.percent)/2)
         scribble = arr[remove : nb - remove, :]

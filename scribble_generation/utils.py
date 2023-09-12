@@ -20,6 +20,10 @@ from tqdm import tqdm
 
 
 def get_scribbles_and_annotations(path_image, split):
+    
+    ### First extract the largest tissue component on the slide 
+    #to generate a healthy scribble later
+
     filename = path_image.split("/")[-1]
     slide = Slide(path_image, processed_path="")
 
@@ -46,27 +50,27 @@ def get_scribbles_and_annotations(path_image, split):
 
     annotation_healthy = contours[r] * sf
 
-    s = Scribble(filename.split(".")[0], percent=1.0, show=False, split=split)
-
+    s = Scribble(filename.split(".")[0], percent=1.0, split=split)
+    ### Extract the contours of all the tumor annotations
     dataframe_annotation = s.create_dataframe_annotations()
+
+    ### For all the annotations: generate a scribble inside the annotation
     scribbles_tumor = []
     annotations_tumor = []
 
     for annotation_id in tqdm(list(dataframe_annotation.columns)):
-        scribble_tumor, annotation = s.scribble_healthy(
+        scribble_tumor, annotation, _, _ = s.scribble(
             dataframe_annotation[annotation_id]
         )
 
         if scribble_tumor is not (None):
-            scribble_tumor = scribble_tumor[s.interpolation_method]
+            scribble_tumor = scribble_tumor
             scribble_tumor = np.expand_dims(scribble_tumor, axis=1)
             annotation = np.expand_dims(annotation, axis=1)
             annotations_tumor.append(annotation)
             scribbles_tumor.append(scribble_tumor)
     try:
-        scribble_healthy = s.scribble_background(annotation_healthy.squeeze())[0][
-            s.interpolation_method
-        ]
+        scribble_healthy, _, _, _ = s.scribble(annotation_healthy.squeeze())[0]
     except:
         scribble_healthy = None
 
