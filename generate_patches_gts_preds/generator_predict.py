@@ -6,11 +6,9 @@ from config import *
 from PIL import ImageFile, Image
 import pandas as pd
 import numpy as np
+import argparse
 
 ImageFile.LOAD_TRUNCATED_IMAGES = True
-
-filename = "test_001"
-path_image = os.path.join(path_patches_test, filename)
 
 
 class CustomImageDataset(Dataset):

@@ -5,10 +5,23 @@ from config import *
 from generator_predict import *
 from PIL import Image
 import torch
+import tifffile
 import numpy as np
 from tqdm import tqdm
 Image.MAX_IMAGE_PIXELS = 1e11
 from torchvision.models import vgg16
+import argparse
+
+parser = argparse.ArgumentParser(description="This code generate all the predictions/ground truth values/features of each patch of each slide of the original test set")
+parser.add_argument(
+    "-np",
+    "--n_passes",
+    help="n_passes is the number of predictions you want to generate from the monte carlo model",
+    type=int,
+    default = 20
+)
+args = parser.parse_args()
+n_passes = args.n_passes
 
 class VGG16(torch.nn.Module):
 
@@ -44,7 +57,7 @@ class Monte_carlo_model(torch.nn.Module):
 
     def __init__(self,
                  model,
-                 n_passes = 20): 
+                 n_passes = n_passes): 
         
         super(Monte_carlo_model, self).__init__()
         
@@ -146,16 +159,13 @@ for filename in tqdm(filenames):
     
     # """ calculates the ground truth values of each patch of the image 
     #     the ground truth gt = 1.e if over half of the patch covered by tumor mask """
-    
     print('retrieving labels from mask ...')
-
     path_patches = os.path.join(path_patches_test,filename)
     path_pf = os.path.join(path_prediction_features,filename)
     img = tifffile.imread(path_mask)
     img_arr = np.asarray(img)
     files = os.listdir(path_patches)
     true_vals = np.zeros(len(files))
-
     for i , filename in enumerate(files):
 
         split = filename.split('_')
@@ -173,7 +183,6 @@ for filename in tqdm(filenames):
             true_vals[i] = 1
         else: 
             true_vals[i] = 0
-            
     np.save(os.path.join(path_pf,'trues.npy'), np.array(true_vals))
     del true_vals
     del img_arr

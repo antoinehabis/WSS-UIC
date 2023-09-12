@@ -7,9 +7,42 @@ from uncertainty_metrics import *
 from iteration_correction import *
 import pandas as pd
 from tqdm import tqdm
+import argparse
+parser = argparse.ArgumentParser(
+    description="Code to generate the tables from the paper."
+)
+parser.add_argument(
+    "-m",
+    "--use_mc",
+    help="choose it you want to use monte_carlo or not",
+    type=bool,
+    default=True
+)
+parser.add_argument(
+    "-s",
+    "--split",
+    help="the folder split you want to apply the iterative correction on: choose between test and val",
+    type=str,
+    default='val'
+)
+
+parser.add_argument(
+    "-n",
+    "--n_tables",
+    help="the number of times you want generate random scribbles on each image (to compute the std of the tables)",
+    type=int,
+    default=10
+)
+
+args = parser.parse_args()
+
+n_tables = args.n_tables
+split  = args.split
+use_mc  = args.use_mc
 
 def main(folder,
-         use_mc=True):
+         use_mc,
+         n_tables):
 
     test_val_set = os.listdir(path_prediction_features)
 
@@ -81,5 +114,6 @@ def main(folder,
 
 
 if __name__ == "__main__":
-    main("test",
-          False)
+    main(split,
+         use_mc,
+         n_tables)

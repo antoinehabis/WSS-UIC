@@ -5,7 +5,7 @@ path_camelyon = "/home/ahabis/sshfs/CAMELYON"
 
 path_slide_tumor_train = os.path.join(path_camelyon, "train/tumor")
 path_slide_tumor_test = os.path.join(path_camelyon, "test/tumor")
-path_annotations_train = os.path.join(path_camelyon, "annotations")
+path_annotations_train = os.path.join(path_camelyon, "train/annotations")
 path_annotations_test = os.path.join(path_camelyon, "test/annotations")
 
 

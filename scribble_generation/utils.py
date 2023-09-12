@@ -1,5 +1,6 @@
 import sys
 from pathlib import Path
+
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 from config import *
 from scribble_inside_shape import Scribble
@@ -15,7 +16,8 @@ from histolab.filters.image_filters import (
 from histolab.filters.morphological_filters import RemoveSmallHoles, RemoveSmallObjects
 import numpy as np
 import cv2
-from tqdm import tqdm 
+from tqdm import tqdm
+
 
 def get_scribbles_and_annotations(path_image, split):
     filename = path_image.split("/")[-1]
@@ -51,8 +53,8 @@ def get_scribbles_and_annotations(path_image, split):
     annotations_tumor = []
 
     for annotation_id in tqdm(list(dataframe_annotation.columns)):
-        scribble_tumor, annotation = s.final_scribble(
-            dataframe_annotation, annotation_id
+        scribble_tumor, annotation = s.scribble_healthy(
+            dataframe_annotation[annotation_id]
         )
 
         if scribble_tumor is not (None):

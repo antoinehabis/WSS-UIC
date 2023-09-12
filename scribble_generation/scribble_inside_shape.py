@@ -1,5 +1,6 @@
 import sys
 from pathlib import Path
+
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 import xml.etree.ElementTree as ET
 import networkx as nx
@@ -14,6 +15,7 @@ import pandas as pd
 import numpy as np
 import matplotlib.pyplot as plt
 from config import *
+from scipy.interpolate import CubicSpline
 
 warnings.filterwarnings("ignore")
 
@@ -128,6 +130,7 @@ class Scribble:
                 for u in range(polygon.shape[0]):
                     x, y = polygon.loc[u]["geometry"].exterior.xy
                     axs.fill(x, y, alpha=0.5, color=np.random.randint(0, 255, 3) / 255)
+                plt.axis('off')
                 plt.show()
             return polygon
         else:
@@ -197,8 +200,8 @@ class Scribble:
         plt.axis("equal")
         plt.show()
 
-    def scribble_inside_shape(self, coordinates, shape, nb_):
-        shape = np.vstack(np.array(shape))
+    def interpolation_points_scribble(self, coordinates, contour, nb_):
+        contour = np.vstack(np.array(contour))
         # Define some points:
         points = coordinates
         if points.shape[0] < 5:
@@ -213,97 +216,92 @@ class Scribble:
         interpolation_method = self.interpolation_method
 
         alpha = np.linspace(0, 1, nb_)
-
         interpolated_points = {}
-        interpolator = interp1d(
-            distance, points, kind=self.interpolation_method, axis=0
-        )
+        interpolator = CubicSpline(distance, points) 
+            
         interpolated_points[self.interpolation_method] = interpolator(alpha)
-        if self.show == True:
-            plt.figure(figsize=(7, 7))
-            for method_name, curve in interpolated_points.items():
-                plt.plot(*curve.T, "-", label=method_name)
+        return interpolated_points, contour
 
-            plt.plot(*points.T, "ok", label="original points")
-            plt.axis("equal")
-            plt.legend()
-            plt.xlabel("x")
-            plt.ylabel("y")
-            plt.plot(shape[:, 0], shape[:, 1])
-            plt.show()
+    # def scribble_tumor(self, annotation, ps=512, ov=0.8, nb_=10000):
 
-        return interpolated_points, shape
+    #     arr = np.vstack(annotation.to_numpy())
+    #     length = arr.shape[0]
+    #     ni = 20
 
-    def final_scribble(self, dataframe, nb_annotation, ps=512, ov=0.8, nb_=10000):
-        annotation = dataframe[nb_annotation]
+    #     if length < ni:
+    #         downsample = arr
+
+    #     else:
+    #         ind__ = np.linspace(0, length - 1, ni).astype(int)
+    #         downsample = np.array(arr[ind__])
+
+    #     try:
+    #         polygon = self.create_delaunay_inside(downsample)
+    #         graph_df, polygon, list_isolated_edges = self.create_polygon_df_graph_df(
+    #             polygon
+    #         )
+
+    #         net = nx.from_pandas_edgelist(graph_df, source="node", target="neighbors")
+    #         net = net.to_directed()
+
+    #         path, dictionnary = self.find_longest_path(
+    #             graph_df, list_isolated_edges, net
+    #         )
+    #         coordinate_df = graph_df[graph_df["node"].isin(path)][
+    #             ["node", "points"]
+    #         ].drop_duplicates()
+    #         list_coordinates = []
+
+    #         for node in path:
+    #             list_coordinates.append(
+    #                 coordinate_df[coordinate_df["node"] == node]["points"].tolist()
+    #             )
+    #         coordinates = np.array(list_coordinates).squeeze()
+
+    #         ret, shape = self.interpolation_points_scribble(coordinates, annotation, nb_=nb_)
+
+    #         arr = ret[self.interpolation_method]
+    #         length = np.sum(np.sqrt(np.sum((arr[:-1] - arr[1:]) ** 2, axis=1)))
+
+    #         nb_patches = int(length / (ps * (1 - ov))) + 1
+    #         indices = np.linspace(1, nb_, nb_patches).astype(int) - 1
+    #         arr = np.array([arr[i] for i in indices])
+    #         ret[self.interpolation_method] = arr
+    #         return ret, shape
+
+    #     except:
+    #         return None, None
+
+    def scribble_healthy(self, annotation, ps=ps, ov=0.8):
+        
+        """
+        Input: the annotation of the healthy or tumor region
+
+        Ouput: the contour of the annotation
+               the scribble inside the contour
+
+        """
+
+        #### We only select ni = 20 points on the contour of the annotation
+
         annotation = annotation[~annotation.isnull()]
         arr = np.vstack(annotation.to_numpy())
         length = arr.shape[0]
-        ni = 30
+        ni = 15
 
         if length < ni:
             downsample = arr
 
         else:
-            ind__ = np.linspace(0, length - 1, ni).astype(int)
-            downsample = np.array(arr[ind__])
+            top = arr[:ni]
+            bot = arr[-ni:]
 
-        try:
-            polygon = self.create_delaunay_inside(downsample)
-            graph_df, polygon, list_isolated_edges = self.create_polygon_df_graph_df(
-                polygon
-            )
-
-            net = nx.from_pandas_edgelist(graph_df, source="node", target="neighbors")
-            net = net.to_directed()
-
-            path, dictionnary = self.find_longest_path(
-                graph_df, list_isolated_edges, net
-            )
-            coordinate_df = graph_df[graph_df["node"].isin(path)][
-                ["node", "points"]
-            ].drop_duplicates()
-            list_coordinates = []
-
-            for node in path:
-                list_coordinates.append(
-                    coordinate_df[coordinate_df["node"] == node]["points"].tolist()
-                )
-            coordinates = np.array(list_coordinates).squeeze()
-
-            ret, shape = self.scribble_inside_shape(coordinates, annotation, nb_=nb_)
-
-            arr = ret[self.interpolation_method]
-            length = np.sum(np.sqrt(np.sum((arr[:-1] - arr[1:]) ** 2, axis=1)))
-
-            nb_patches = int(length / (ps * (1 - ov))) + 1
-            indices = np.linspace(1, nb_, nb_patches).astype(int) - 1
-            arr = np.array([arr[i] for i in indices])
-            ret[self.interpolation_method] = arr
-            return ret, shape
-        except:
-            return None, None
-
-    def scribble_background(self, annotation, ps=512, ov=0.8, nb_=10000, margin=30):
-        length = annotation.shape[0]
-        ni = 30
-
-        if length < ni:
-            downsample = annotation
-
-        else:
-            top = annotation[:margin]
-            bot = annotation[-margin:]
-
-            new_annotation = np.concatenate([bot, annotation, top])
-            distance = np.cumsum(
-                np.sqrt(np.sum(np.diff(new_annotation, axis=0) ** 2, axis=1))
-            )
+            new_arr = np.concatenate([bot, arr, top])
+            distance = np.cumsum(np.sqrt(np.sum(np.diff(new_arr, axis=0) ** 2, axis=1)))
             distance = np.insert(distance, 0, 0) / distance[-1]
-            alpha = np.linspace(distance[margin], distance[-margin], ni)
-            downsample = interp1d(distance, new_annotation, kind="linear", axis=0)(
-                alpha
-            )
+            alpha = np.linspace(distance[ni], distance[-ni], ni)
+            downsample = interp1d(distance, new_arr, kind="linear", axis=0)(alpha)
+        #### Creation of the scribble
 
         polygon = self.create_delaunay_inside(downsample)
         graph_df, polygon, list_isolated_edges = self.create_polygon_df_graph_df(
@@ -322,18 +320,19 @@ class Scribble:
             )
         coordinates = np.array(list_coordinates).squeeze()
 
-        ret, shape = self.scribble_inside_shape(coordinates, downsample, nb_=nb_)
-        arr = ret[self.interpolation_method]
+        ### coordinates are the coordinate of the points randomly sampled inside each triangle
+        ### We interpolate the extracted coordinates and get rid of the top and bottom part of the scribbles to get the final scribble:
 
-        percent = (np.random.random(1) * (1 - self.percent))[0] / 2
+        interpolated_points, contour = self.interpolation_points_scribble(
+            coordinates, downsample, nb_=10000
+        )
+        arr = interpolated_points[self.interpolation_method]
+
         nb = arr.shape[0]
-        remove = (nb * percent).astype(int)
-        arr = arr[remove : nb - remove, :]
-
+        remove = int((nb * self.percent)/2)
+        scribble = arr[remove : nb - remove, :]
         length = np.sum(np.sqrt(np.sum((arr[:-1] - arr[1:]) ** 2, axis=1)))
         nb_patches = int(length / (ps * (1 - ov))) + 1
-        indices = np.linspace(1, arr.shape[0], nb_patches).astype(int) - 1
-        arr = np.array([arr[i] for i in indices])
-
-        ret[self.interpolation_method] = arr
-        return ret, shape
+        indices = np.linspace(1, scribble.shape[0], nb_patches).astype(int) - 1
+        arr = scribble[indices]
+        return arr, contour, scribble, coordinates

@@ -6,6 +6,7 @@ from sklearn.linear_model import SGDClassifier
 from sklearn.decomposition import PCA
 import numpy as np
 
+
 def metrics(predictions, trues):
     tp = np.sum((predictions) * trues)
     tn = np.sum((1 - predictions) * (1 - trues))

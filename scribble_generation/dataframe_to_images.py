@@ -1,5 +1,6 @@
 import sys
 from pathlib import Path
+
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 from config import *
 from PIL import ImageFile
@@ -9,10 +10,19 @@ import pandas as pd
 import numpy as np
 from openslide import OpenSlide
 from tqdm import tqdm
+
 ImageFile.LOAD_TRUNCATED_IMAGES = True
+import argparse
 
-
-split = "test"
+parser = argparse.ArgumentParser(description="Code to generate patches from scribbles.")
+parser.add_argument(
+    "-s",
+    "--split",
+    help="Select the train/test split you want to generate scribbles on .",
+    type=str,
+)
+args = parser.parse_args()
+split = args.split
 
 if split == "train":
     path_patches = path_patches_scribbles_train
@@ -26,7 +36,7 @@ else:
 
 
 if not os.path.exists(path_patches):
-   os.makedirs(path_patches)
+    os.makedirs(path_patches)
 
 
 # #### CREATE DATASET FROM slides

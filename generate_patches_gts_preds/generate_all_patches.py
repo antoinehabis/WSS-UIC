@@ -1,5 +1,6 @@
 import sys
 from pathlib import Path
+
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 from wsitools.tissue_detection.tissue_detector import TissueDetector
 from wsitools.patch_extraction.patch_extractor import (
@@ -9,9 +10,31 @@ from wsitools.patch_extraction.patch_extractor import (
 import multiprocessing
 from config import *
 from glob import glob
+import argparse
 
-num_processors = 16  # Number of processes that can be running at once
-k = 0  # index of the split: can only run 16 Slides at a time so we have to split the Slides into 3 split
+parser = argparse.ArgumentParser(
+    description="Code to generate all the patches with a given overlap of the original test set inside the tissue."
+)
+
+parser.add_argument(
+    "-k",
+    "--k",
+    help="this code generate the patches of (num_processors= 16) slides of your test folder, if k ==0 it generates the first 16 if k==1 from 16 to 32, etc...",
+    type=int,
+    default=0
+)
+parser.add_argument(
+    "-p",
+    "--p",
+    help="number of processors used",
+    type=int,
+    default=16
+)
+
+args = parser.parse_args()
+
+num_processors = args.p  # Number of processes that can be running at once
+k = args.k  # index of the split: can only run 16 Slides at a time so we have to split the Slides into 3 split
 
 wsi_fn = glob(path_slide_tumor_test + "/*")[
     num_processors * k : num_processors * (k + 1)

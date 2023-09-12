@@ -10,8 +10,25 @@ import cv2
 import matplolib.pyplot as plt
 from PIL import Image
 
-filename = "test_001"
+parser = argparse.ArgumentParser(
+    description="Code to generate the patches of uncertainty map and to stitch them."
+)
+parser.add_argument(
+    "-f",
+    "--filename",
+    help="Select the filename of the slide from which you want to create a uncertainty map",
+    type=str,
+)
 
+parser.add_argument(
+    "-u",
+    "--uncertainty",
+    help="Select the uncertainty metric you want to calculate:\n choose between mvr, entropy, std",
+    type=str,
+)
+args = parser.parse_args()
+filename = args.filename
+uncertainty = args.uncertainty
 path_patches = os.path.join(path_patches_test, filename)
 new_filename = filename.replace("_", "")
 path_pp = os.path.join(path_prediction_patches, new_filename)
@@ -26,10 +43,12 @@ preds = np.squeeze(np.load(path_pf))
 
 
 ##### SELECT THE UNCERTAINTY MEASURE
-
-preds = compute_minority_vote_ratio(preds)
-# preds = compute_entropy(preds, patch_level=True)
-# preds = compute_std(preds, patch_level=True)
+if uncertainty == 'mvr':
+    preds = compute_minority_vote_ratio(preds)
+if uncertainty == 'entropy':
+    preds = compute_entropy(preds, patch_level=True)
+if uncertainty == 'std':
+    preds = compute_std(preds, patch_level=True)
 
 #####
 
@@ -65,6 +84,4 @@ sub = SubPatches2BigTiff(
     patch_size=(ps, ps),
     xy_step=(int(ps * (1 - ov)), int(ps * (1 - ov))),
 )
-
-
 sub.save()
