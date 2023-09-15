@@ -61,8 +61,9 @@ def compute_entropy(x, patch_level=True):
     pl = np.sum(entropy_array, axis=0) / np.log2(n_predictions)
 
     if patch_level:
+
         pl = pl / np.max(pl)
-        pl = ((pl * 2 * (np.mean(x, 0) > optimal_threshold).astype(int) - 1) +1)/2
+        pl = (pl * (2 * (np.mean(x, 0) > optimal_threshold).astype(int) - 1) +1)/2
         return pl
     else:
         return np.mean(pl)
