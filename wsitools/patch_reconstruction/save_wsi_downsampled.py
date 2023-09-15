@@ -6,7 +6,10 @@ import re
 import openslide
 import multiprocessing
 import math
-
+from glob import glob
+import numpy as np
+from PIL import Image
+import cv2
 # save image patches back into a big tiff file
 # file name should fellow this pattern uuid_x_y.jpg or uuid_x_y.png
 # otherwise, you have to rewrite the function
@@ -104,6 +107,7 @@ class SubPatches2BigTiff:
     def get_thumbnail(self, thumbnail_fn):
         obj = openslide.open_slide(self.save_to)
         print("WSI loaded")
+    
         thumbnail = obj.get_thumbnail(size=(1024, 1024)).convert("RGB")
         thumbnail.save(thumbnail_fn)
 

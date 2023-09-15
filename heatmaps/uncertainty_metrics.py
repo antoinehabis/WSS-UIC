@@ -6,19 +6,46 @@ from config import *
 
 
 def compute_std(x, patch_level=True):
+
+    """
+        Input: Monte_carlo predictions of the whole slide
+            shape is (n_passes, nb_patches)
+        Output:
+            if patch_level = True
+                return a modified uncertainty value for each patches of the slide:
+                1. value close to 0 means high uncertainty but the predictions are under the threshold which means the patch is a potential FN.
+                2. value close to 1 means high uncertainty but the predictions are above the threshold which means the patch is a potential FP.
+                3. value close to 0.5 means low uncertainty.
+
+    """
     if not (patch_level):
         x = x[:, np.mean(x, 0) > optimal_threshold]
     image_std = np.std(x, 0)
-    max_std = np.std(np.concatenate([np.ones(10), np.zeros(10)]))
+    max_std = 0.5
     pl = image_std / max_std
 
     if patch_level:
+        pl = pl/np.max(pl)
+        pl = ((pl * 2 * (np.mean(x, 0) > optimal_threshold).astype(int) - 1) +1)/2
         return pl
-    else:
+
         return np.mean(pl)
 
 
 def compute_entropy(x, patch_level=True):
+        
+    """
+    Input: Monte_carlo predictions of the whole slide
+        shape is (n_passes, nb_patches)
+    Output:
+        if patch_level = True
+            return a modified uncertainty value for each patches of the slide:
+            1. value close to 0 means high uncertainty but the predictions are under the threshold which means the patch is a potential FN.
+            2. value close to 1 means high uncertainty but the predictions are above the threshold which means the patch is a potential FP.
+            3. value close to 0.5 means low uncertainty.
+
+    """
+
     if not (patch_level):
         x = x[:, np.mean(x, 0) > optimal_threshold]
 
@@ -34,6 +61,8 @@ def compute_entropy(x, patch_level=True):
     pl = np.sum(entropy_array, axis=0) / np.log2(n_predictions)
 
     if patch_level:
+        pl = pl / np.max(pl)
+        pl = ((pl * 2 * (np.mean(x, 0) > optimal_threshold).astype(int) - 1) +1)/2
         return pl
     else:
         return np.mean(pl)

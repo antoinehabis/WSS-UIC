@@ -1,5 +1,6 @@
 import sys
 from pathlib import Path
+
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 
 from config import *
@@ -8,6 +9,7 @@ from iteration_correction import *
 import pandas as pd
 from tqdm import tqdm
 import argparse
+
 parser = argparse.ArgumentParser(
     description="Code to generate the tables from the paper."
 )
@@ -16,14 +18,14 @@ parser.add_argument(
     "--use_mc",
     help="choose it you want to use monte_carlo or not",
     type=bool,
-    default=True
+    default=False,
 )
 parser.add_argument(
     "-s",
     "--split",
     help="the folder split you want to apply the iterative correction on: choose between test and val",
     type=str,
-    default='val'
+    default="val",
 )
 
 parser.add_argument(
@@ -31,28 +33,25 @@ parser.add_argument(
     "--n_tables",
     help="the number of times you want generate random scribbles on each image (to compute the std of the tables)",
     type=int,
-    default=10
+    default=10,
 )
 
 args = parser.parse_args()
 
 n_tables = args.n_tables
-split  = args.split
-use_mc  = args.use_mc
+split = args.split
+use_mc = args.use_mc
 
-def main(folder,
-         use_mc,
-         n_tables):
 
+def main(split, use_mc, n_tables):
     test_val_set = os.listdir(path_prediction_features)
-
-    if folder == "test":
+    if split == "test":
         image_list = test_set
-    if folder == "val":
+    if split == "val":
         image_list = val_set
+
     ###
     epochs_range = [30]
-    n_tables = 1
     tables = np.zeros((n_tables, len(epochs_range), 5, 4))
 
     for i in range(n_tables):
@@ -60,6 +59,7 @@ def main(folder,
             score_tables = np.zeros((len(image_list), 5, 4))
 
             for n, image in tqdm(enumerate(image_list)):
+
                 if use_mc:
                     current_image_path = os.path.join(path_prediction_features, image)
                     mc_predictions = np.load(
@@ -71,12 +71,17 @@ def main(folder,
                     corr_effect = (
                         compute_entropy(predictions, patch_level=False) / MAX_ENTROPY
                     )
-                    corr_epochs = np.clip((corr_effect * epochs), 1, None).astype(int)
+                    corr_epochs = np.clip((corr_effect * 2 * epochs), 1, None).astype(
+                        int
+                    )
                 else:
                     corr_epochs = epochs
+
                 image_table = generate_progression_table(image, 1000, corr_epochs)
                 score_tables[n] = image_table
+
             tables[i, j] = np.mean(score_tables, 0)
+            print(tables[i,j])
     table_means = np.mean(tables, axis=0)
     table_stds = np.std(tables, axis=0)
 
@@ -98,8 +103,8 @@ def main(folder,
             columns=["Accuracy", "Precision", "Recall", "F1 Score"],
         )
 
-        mean_table_directory = os.path.join(path_metric_tables, folder + sufix, "mean")
-        std_table_directory = os.path.join(path_metric_tables, folder + sufix, "std")
+        mean_table_directory = os.path.join(path_metric_tables, split + sufix, "mean")
+        std_table_directory = os.path.join(path_metric_tables, split + sufix, "std")
 
         if not os.path.exists(mean_table_directory):
             os.makedirs(mean_table_directory)
@@ -114,6 +119,4 @@ def main(folder,
 
 
 if __name__ == "__main__":
-    main(split,
-         use_mc,
-         n_tables)
+    main(split, use_mc, n_tables)

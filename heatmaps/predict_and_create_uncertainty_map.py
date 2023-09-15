@@ -1,5 +1,6 @@
 import sys
 from pathlib import Path
+
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 from config import *
 from multiprocessing import Pool
@@ -7,8 +8,9 @@ from wsitools.patch_reconstruction.save_wsi_downsampled import SubPatches2BigTif
 from uncertainty_metrics import *
 import numpy as np
 import cv2
-import matplolib.pyplot as plt
+import matplotlib.pyplot as plt
 from PIL import Image
+import argparse
 
 parser = argparse.ArgumentParser(
     description="Code to generate the patches of uncertainty map and to stitch them."
@@ -43,11 +45,11 @@ preds = np.squeeze(np.load(path_pf))
 
 
 ##### SELECT THE UNCERTAINTY MEASURE
-if uncertainty == 'mvr':
+if uncertainty == "mvr":
     preds = compute_minority_vote_ratio(preds)
-if uncertainty == 'entropy':
+if uncertainty == "entropy":
     preds = compute_entropy(preds, patch_level=True)
-if uncertainty == 'std':
+if uncertainty == "std":
     preds = compute_std(preds, patch_level=True)
 
 #####
@@ -56,13 +58,13 @@ filenames = os.listdir(path_patches)
 i_s = np.arange(len(filenames))
 
 
-def create_heatmap(args):
+def create_heatmap(args, colormap=plt.cm.PiYG):
     filename, i = args
     real_img = np.asarray(Image.open(os.path.join(path_patches, filename)))
     value = preds[i]
-    heatmap = 255 - (np.ones((ps, ps)) * value * 255).astype(np.uint8)
-    heatmap = cv2.applyColorMap(heatmap, cv2.COLORMAP_TURBO)
-    img_to_save = cv2.addWeighted(heatmap, 0.6, real_img[:, :, :3], 0.4, 0)
+    heatmap = 1 - (np.ones((ps, ps)) * value)
+    colormapped_heatmap = (colormap(heatmap) * 255).astype(np.uint8)[:, :, :3]
+    img_to_save = cv2.addWeighted(colormapped_heatmap, 0.6, real_img[:, :, :3], 0.4, 0)
     plt.imsave(os.path.join(path_pp, filename), img_to_save)
 
 

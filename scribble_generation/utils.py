@@ -62,9 +62,10 @@ def get_scribbles_and_annotations(path_image, split):
         annotation_contour = dataframe_annotation[annotation_id]
         annotation_contour = annotation_contour[~annotation_contour.isnull()]
         contour_tissue = np.vstack(annotation_contour.to_numpy())
-
-        scribble_tumor, annotation, _, _ = s.scribble(contour_tissue)
-
+        try :
+            scribble_tumor, annotation, _, _ = s.scribble(contour_tissue)
+        except: 
+            scribble_tumor = None
         if scribble_tumor is not (None):
             scribble_tumor = scribble_tumor
             scribble_tumor = np.expand_dims(scribble_tumor, axis=1)
@@ -73,7 +74,8 @@ def get_scribbles_and_annotations(path_image, split):
             scribbles_tumor.append(scribble_tumor)
 
     ### Generate a scribble in a healthy region
-    scribble_healthy, _, _, _ = s.scribble(annotation_healthy.squeeze())
-
-
+    try:
+        scribble_healthy, _, _, _ = s.scribble(annotation_healthy.squeeze())
+    except: 
+        scribble_healthy = None
     return (annotations_tumor, scribbles_tumor, annotation_healthy, scribble_healthy)

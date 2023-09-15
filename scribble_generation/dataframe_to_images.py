@@ -28,12 +28,14 @@ if split == "train":
     path_patches = path_patches_scribbles_train
     path_images = path_slide_tumor_train
     path_dataframe = path_dataframe_train
+    dataframe = pd.read_csv(path_dataframe_train, index_col = 0)    
 
 else:
     path_patches = path_patches_scribbles_test
     path_images = path_slide_tumor_test
     path_dataframe = path_dataframe_test
-
+    dataframe = pd.read_csv(path_dataframe, index_col = 0)
+    
 
 if not os.path.exists(path_patches):
     os.makedirs(path_patches)
