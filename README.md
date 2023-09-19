@@ -1,5 +1,6 @@
 # Weakly-Supervised-Segmentation-and-uncertainty-based-Interactive-Correction-on-Whole-Slide-Images
 
+
 This repository is created to replicate the results on the paper: ....
 
 ## 0. Donwload CAMELYON
@@ -34,6 +35,9 @@ python dataframe_to_images.py --split train
 For each split value , this code extract the images along the scribbles according to the dataframes created before and save them in the 2 folders:
 ```path_patches_scribbles_train``` and ```path_patches_scribbles_train```.
 The class of the patch is written inside the filename of the corresponding patch.
+
+![alt text](./images_git/scribble_process.png)
+
 ## 2. Train VGG16 on Scribbles
 
 ```
@@ -67,6 +71,7 @@ This code uses the VGG16 trained in #2 and monte_carlo to extract for each patch
 the extracted data is save in ```path_prediction_features```
 
 ## 4. generate heatmaps/uncertainty heatmaps
+![alt text](./images_git/uncertainty.png)
 
 To generate a heatmap/uncerainty map:
 
@@ -86,6 +91,8 @@ The code extracts the patch, overlays the prediction on the patch, save the patc
 ```path_uncertainty_maps``` or  ```path_heatmaps```.
 
 ## 5. SVM Corrections
+![img|320x271](./images_git/correction_process.png)
+
 
 ```
 cd ./correction_SVM
