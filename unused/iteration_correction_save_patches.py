@@ -98,9 +98,7 @@ def compute_new_dataset(features, predictions, trues, initialization, nb_scribbl
         return data, y, indexes_fn, indexes_fp
 
 
-def generate_progression_table(
-    image, init_epochs=800, inc_epochs=40, save_patches_preds_corr="y"
-):
+def generate_progression_table(image, init_epochs=1000, inc_epochs=30):
     current_image_path = os.path.join(path_prediction_features, image)
     mc_predictions = np.load(os.path.join(current_image_path, "predictions.npy"))
     predictions = np.mean(np.squeeze(mc_predictions), axis=0)
@@ -128,13 +126,6 @@ def generate_progression_table(
     a_predictions = svm.predict(features)
     a_predictions[indexes_fn1] = 1
     a_predictions[indexes_fp1] = 0
-
-    row2 = metrics(a_predictions, trues)
-
-    if np.around(row2[0], 3) == 1:
-        row3, row4, row5 = [1, 1, 1, 1], [1, 1, 1, 1], [1, 1, 1, 1]
-        return np.array([row1, row2, row3, row4, row5])
-
     # SVM pass 2
 
     data, y, indexes_fn2, indexes_fp2 = compute_new_dataset(
@@ -148,11 +139,6 @@ def generate_progression_table(
     b_predictions[indexes_fp1] = 0
     b_predictions[indexes_fn2] = 1
     b_predictions[indexes_fp2] = 0
-    row3 = metrics(b_predictions, trues)
-
-    if np.around(row3[0], 3) == 1:
-        row4, row5 = [1, 1, 1, 1], [1, 1, 1, 1]
-        return np.array([row1, row2, row3, row4, row5])
 
     # SVM pass 3
     data, y, indexes_fn3, indexes_fp3 = compute_new_dataset(
@@ -170,11 +156,8 @@ def generate_progression_table(
 
     row4 = metrics(c_predictions, trues)
 
-    if np.around(row4[0], 3) == 1:
-        row5 = [1, 1, 1, 1]
-        return np.array([row1, row2, row3, row4, row5])
 
-    # SVM pass 3
+    # SVM pass 4
     data, y, indexes_fn4, indexes_fp4 = compute_new_dataset(
         features, c_predictions, trues, initialization=False
     )
@@ -183,6 +166,7 @@ def generate_progression_table(
         svm.partial_fit(data, y, classes=[0, 1])
 
     d_predictions = svm.predict(features)
+
     d_predictions[indexes_fn1] = 1
     d_predictions[indexes_fp1] = 0
     d_predictions[indexes_fn2] = 1
@@ -191,14 +175,7 @@ def generate_progression_table(
     d_predictions[indexes_fp3] = 0
     d_predictions[indexes_fn4] = 1
     d_predictions[indexes_fp4] = 0
-    row5 = metrics(d_predictions, trues)
-
-    if save_patches_preds_corr == "y":
-        path_corrections_save = os.path.join(
-            path_prediction_features, image)
-        if not os.path.exists(path_corrections_save):
-            os.makedirs(path_corrections_save)
-        print(os.path.join(path_corrections_save, "predictions_correction.npy"))
-        np.save(os.path.join(path_corrections_save, "predictions_correction.npy"), d_predictions)
-
-    return np.array([row1, row2, row3, row4, row5])
+    path_corrections_save = os.path.join(path_prediction_features, image)
+    if not os.path.exists(path_corrections_save):
+        os.makedirs(path_corrections_save)
+    np.save(os.path.join(path_corrections_save, "predictions_correction.npy"), d_predictions)

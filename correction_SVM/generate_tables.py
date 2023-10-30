@@ -36,20 +36,31 @@ parser.add_argument(
     default=10,
 )
 
+parser.add_argument(
+    "-save",
+    "--save",
+    help="if save the corrections values after the 4th correction process",
+    type=str,
+    default="y",
+)
+
 args = parser.parse_args()
 
 n_tables = args.n_tables
 split = args.split
 use_mc = args.use_mc
+save = args.save
 
 
-def main(split, use_mc, n_tables):
+def main(split, use_mc, n_tables, save):
     test_val_set = os.listdir(path_prediction_features)
+
     if split == "test":
         image_list = test_set
     if split == "val":
         image_list = val_set
-
+        
+    image_list = ['test_011']
     ###
     epochs_range = [30]
     tables = np.zeros((n_tables, len(epochs_range), 5, 4))
@@ -59,7 +70,6 @@ def main(split, use_mc, n_tables):
             score_tables = np.zeros((len(image_list), 5, 4))
 
             for n, image in tqdm(enumerate(image_list)):
-
                 if use_mc:
                     current_image_path = os.path.join(path_prediction_features, image)
                     mc_predictions = np.load(
@@ -67,7 +77,6 @@ def main(split, use_mc, n_tables):
                     )
                     predictions = np.squeeze(mc_predictions)
                     MAX_ENTROPY = 0.4
-                    # MIN_ENTROPY = 0.09
                     corr_effect = (
                         compute_entropy(predictions, patch_level=False) / MAX_ENTROPY
                     )
@@ -77,11 +86,11 @@ def main(split, use_mc, n_tables):
                 else:
                     corr_epochs = epochs
 
-                image_table = generate_progression_table(image, 1000, corr_epochs)
+                image_table = generate_progression_table(image, 1000, corr_epochs, save)
                 score_tables[n] = image_table
 
             tables[i, j] = np.mean(score_tables, 0)
-            print(tables[i,j])
+            print(tables[i, j])
     table_means = np.mean(tables, axis=0)
     table_stds = np.std(tables, axis=0)
 
@@ -119,4 +128,4 @@ def main(split, use_mc, n_tables):
 
 
 if __name__ == "__main__":
-    main(split, use_mc, n_tables)
+    main(split, use_mc, n_tables, save)

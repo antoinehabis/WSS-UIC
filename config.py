@@ -21,9 +21,12 @@ path_prediction_features = os.path.join(path_preds, "features_predictions")
 path_slide_true_masks = os.path.join(path_preds, "truemasks")
 path_uncertainty_maps = os.path.join(path_preds, "uncertainty_maps")
 path_heatmaps = os.path.join(path_preds, "heatmaps")
+path_segmaps = os.path.join(path_preds, "segmaps")
+
 path_metric_tables = os.path.join(path_preds, "metric_tables")
 path_weights = os.path.join(path_preds, "weights")
 path_prediction_patches = os.path.join(path_preds, 'patches_prediction')
+path_prediction_patches_correction = os.path.join(path_preds, 'patches_prediction_correction')
 
 
 
@@ -86,25 +89,3 @@ val_set = [
     "test_038",
     "test_013",
 ]
-
-
-# class VGG16(torch.nn.Module):
-
-#     def __init__(self,model):
-#         super(VGG16, self).__init__()
-
-#         self.vgg16 = model
-#         self.relu = torch.nn.ReLU()
-#         self.fc = torch.nn.Linear(in_features = 1000,out_features = 1).cuda()
-#         self.sigmoid = torch.nn.Sigmoid()
-
-
-#     def forward(self, x):
-#         x0 = self.vgg16(x) #### output size  4096
-#         x1 = self.relu(x0)
-#         x2 = self.fc(x1)  #### output size  1
-#         x3 = self.sigmoid(x2)
-
-#         return x3
-
-# model = VGG16(vgg16(pretrained=True)).cuda()
