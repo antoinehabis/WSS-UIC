@@ -17,7 +17,7 @@ parser.add_argument(
     "-m",
     "--use_mc",
     help="choose it you want to use monte_carlo or not",
-    type=bool,
+    type=str,
     default=False,
 )
 parser.add_argument(
@@ -25,7 +25,7 @@ parser.add_argument(
     "--split",
     help="the folder split you want to apply the iterative correction on: choose between test and val",
     type=str,
-    default="val",
+    default="test",
 )
 
 parser.add_argument(
@@ -59,8 +59,9 @@ def main(split, use_mc, n_tables, save):
         image_list = test_set
     if split == "val":
         image_list = val_set
-        
+
     ###
+
     epochs_range = [30]
     tables = np.zeros((n_tables, len(epochs_range), 5, 4))
 
@@ -69,7 +70,8 @@ def main(split, use_mc, n_tables, save):
             score_tables = np.zeros((len(image_list), 5, 4))
 
             for n, image in tqdm(enumerate(image_list)):
-                if use_mc:
+
+                if use_mc=='y':
                     current_image_path = os.path.join(path_prediction_features, image)
                     mc_predictions = np.load(
                         os.path.join(current_image_path, "predictions.npy")
@@ -94,7 +96,7 @@ def main(split, use_mc, n_tables, save):
     table_stds = np.std(tables, axis=0)
 
     for j, (table_mean, table_std) in enumerate(zip(table_means, table_stds)):
-        if use_mc:
+        if use_mc=='y':
             sufix = "_mc"
         else:
             sufix = "_no_mc"
@@ -124,6 +126,9 @@ def main(split, use_mc, n_tables, save):
         df_std.to_csv(os.path.join(std_table_directory, table_name))
 
     return 0
+
+print(use_mc)
+print(save)
 
 
 if __name__ == "__main__":
