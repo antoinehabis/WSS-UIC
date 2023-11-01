@@ -40,7 +40,7 @@ i_s = np.arange(len(filenames))
 
 def create_heatmap(args):
     filename, i = args
-    real_img = np.asarray(Image.open(os.path.join(path_patches,filename)))
+    real_img = np.asarray(Image.open(os.path.join(path_patches,filename))).copy()
     value = preds[i]
     heatmap = 255 - (np.ones((ps,ps)) * value * 255).astype(np.uint8)
     heatmap = cv2.applyColorMap(heatmap, cv2.COLORMAP_JET)

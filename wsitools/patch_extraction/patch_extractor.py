@@ -417,6 +417,8 @@ class PatchExtractor:
                     tf_writer.write(example.SerializeToString())  # Serialize to string and write on the file
                     logger.info('\rWrote {} to tfRecords '.format(patch_cnt))
                     sys.stdout.flush()
+
+
                 else:  # save patch to jpg, with label text and id in file name
                     # if logger.DEBUG == logger.root.level:
                     #     import matplotlib.pyplot as plt
@@ -426,6 +428,7 @@ class PatchExtractor:
                     fn = self.generate_patch_fn(case_info, (loc_x[idx], loc_y[idx]), label_text=label_txt)
                     if not os.path.exists(os.path.split(fn)[0]):
                         os.makedirs(os.path.split(fn)[0])
+
                     if self.save_format == ".jpg":
                         patch.save(fn)
                     elif self.save_format == ".png":

@@ -27,6 +27,7 @@ parser.add_argument(
     "--uncertainty",
     help="Select the uncertainty metric you want to calculate:\n choose between mvr, entropy, std",
     type=str,
+    default="entropy",
 )
 args = parser.parse_args()
 filename = args.filename
@@ -51,7 +52,6 @@ if uncertainty == "entropy":
     preds = compute_entropy(preds, patch_level=True)
 if uncertainty == "std":
     preds = compute_std(preds, patch_level=True)
-
 #####
 
 filenames = os.listdir(path_patches)
@@ -60,7 +60,7 @@ i_s = np.arange(len(filenames))
 
 def create_heatmap(args, colormap=plt.cm.PiYG):
     filename, i = args
-    real_img = np.asarray(Image.open(os.path.join(path_patches, filename)))
+    real_img = np.asarray(Image.open(os.path.join(path_patches, filename))).copy()
     value = preds[i]
     heatmap = 1 - (np.ones((ps, ps)) * value)
     colormapped_heatmap = (colormap(heatmap) * 255).astype(np.uint8)[:, :, :3]

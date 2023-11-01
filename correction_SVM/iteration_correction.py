@@ -35,7 +35,7 @@ def find_indexes(x, nb_scribble):
 
 def compute_new_dataset(features, predictions, trues, initialization, nb_scribble=10):
     if initialization:
-        thresh = 0.33
+        thresh = optimal_threshold
         n_limit = 1000
         tp = np.sum((predictions > thresh) * trues)
         tn = np.sum((predictions < thresh) * (1 - trues))
@@ -198,6 +198,7 @@ def generate_progression_table(
             path_prediction_features, image)
         if not os.path.exists(path_corrections_save):
             os.makedirs(path_corrections_save)
+            
         print(os.path.join(path_corrections_save, "predictions_correction.npy"))
         np.save(os.path.join(path_corrections_save, "predictions_correction.npy"), d_predictions)
 

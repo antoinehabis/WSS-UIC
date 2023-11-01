@@ -60,7 +60,6 @@ def main(split, use_mc, n_tables, save):
     if split == "val":
         image_list = val_set
         
-    image_list = ['test_011']
     ###
     epochs_range = [30]
     tables = np.zeros((n_tables, len(epochs_range), 5, 4))

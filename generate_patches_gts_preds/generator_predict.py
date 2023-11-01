@@ -31,7 +31,7 @@ class CustomImageDataset(Dataset):
         return self.dataframe.shape[0]
 
 
-dataset_test = CustomImageDataset(path_image=path_image)
+dataset_test = CustomImageDataset(path_image=path_slide_tumor_test)
 
 loader_test = DataLoader(
     batch_size=bs, dataset=dataset_test, num_workers=16, shuffle=False
