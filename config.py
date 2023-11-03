@@ -27,6 +27,7 @@ path_metric_tables = os.path.join(path_preds, "metric_tables")
 path_weights = os.path.join(path_preds, "weights")
 path_prediction_patches = os.path.join(path_preds, 'patches_prediction')
 path_prediction_patches_correction = os.path.join(path_preds, 'patches_prediction_correction')
+path_uncertainty_patches = os.path.join(path_preds, 'patches_uncertainty')
 
 
 
@@ -55,13 +56,7 @@ test_set = [
     "test_122",
     "test_074",
     "test_079",
-    "test_084",
-    "test_117",
-    "test_010",
-    "test_011",
-    "test_102",
-    "test_097",
-    "test_116",
+    
 ]
 val_set = [
     "test_016",

@@ -26,7 +26,7 @@ class Send:
         else:
             self.path_image = path_slide_tumor_test
 
-        img = OpenSlide(os.path.join(self.path_image, self.filename))
+        img = OpenSlide(os.path.join(self.path_image, self.filename,'.tif'))
         self.dim = img.dimensions[1]
 
     def delete_loops(self, shape):

@@ -19,13 +19,17 @@ import cv2
 from tqdm import tqdm
 
 
-def get_scribbles_and_annotations(path_image, split):
+def get_scribbles_and_annotations(filename, split):
+
+    if split == 'train':
+        path_image = path_slide_tumor_train
+    else: 
+        path_image = path_slide_tumor_test
     
     ### First extract the largest tissue component on the slide 
     #to generate a healthy scribble later
 
-    filename = path_image.split("/")[-1]
-    slide = Slide(path_image, processed_path="")
+    slide = Slide(os.path.join(path_image,filename), processed_path="")
 
     mask = TissueMask(
         RgbToGrayscale(),
@@ -50,7 +54,7 @@ def get_scribbles_and_annotations(path_image, split):
 
     annotation_healthy = contours[r] * sf
 
-    s = Scribble(filename.split(".")[0], percent=0.0, split=split)
+    s = Scribble(filename, percent=0.0, split=split)
     ### Extract the contours of all the tumor annotations
     dataframe_annotation = s.create_dataframe_annotations()
 
