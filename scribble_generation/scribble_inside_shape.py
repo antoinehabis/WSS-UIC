@@ -210,56 +210,6 @@ class Scribble:
         interpolated_points = interpolator(alpha)
         return interpolated_points, contour
 
-    # def scribble_tumor(self, annotation, ps=512, ov=0.8, nb_=10000):
-
-    #     arr = np.vstack(annotation.to_numpy())
-    #     length = arr.shape[0]
-    #     ni = 20
-
-    #     if length < ni:
-    #         downsample = arr
-
-    #     else:
-    #         ind__ = np.linspace(0, length - 1, ni).astype(int)
-    #         downsample = np.array(arr[ind__])
-
-    #     try:
-    #         polygon = self.create_delaunay_inside(downsample)
-    #         graph_df, polygon, list_isolated_edges = self.create_polygon_df_graph_df(
-    #             polygon
-    #         )
-
-    #         net = nx.from_pandas_edgelist(graph_df, source="node", target="neighbors")
-    #         net = net.to_directed()
-
-    #         path, dictionnary = self.find_longest_path(
-    #             graph_df, list_isolated_edges, net
-    #         )
-    #         coordinate_df = graph_df[graph_df["node"].isin(path)][
-    #             ["node", "points"]
-    #         ].drop_duplicates()
-    #         list_coordinates = []
-
-    #         for node in path:
-    #             list_coordinates.append(
-    #                 coordinate_df[coordinate_df["node"] == node]["points"].tolist()
-    #             )
-    #         coordinates = np.array(list_coordinates).squeeze()
-
-    #         ret, shape = self.interpolation_points_scribble(coordinates, annotation, nb_=nb_)
-
-    #         arr = ret[self.interpolation_method]
-    #         length = np.sum(np.sqrt(np.sum((arr[:-1] - arr[1:]) ** 2, axis=1)))
-
-    #         nb_patches = int(length / (ps * (1 - ov))) + 1
-    #         indices = np.linspace(1, nb_, nb_patches).astype(int) - 1
-    #         arr = np.array([arr[i] for i in indices])
-    #         ret[self.interpolation_method] = arr
-    #         return ret, shape
-
-    #     except:
-    #         return None, None
-
     def scribble(self, annotation, ps=ps, ov=0.8):
         
         """
