@@ -40,7 +40,7 @@ loss = torch.nn.BCELoss(reduction="mean")
 
 run = neptune.init(
     project="antoine.habis.tlcm/Scribble",
-    api_token="eyJhcGlfYWRkcmVzcyI6Imh0dHBzOi8vYXBwLm5lcHR1bmUuYWkiLCJhcGlfdXJsIjoiaHR0cHM6Ly9hcHAubmVwdHVuZS5haSIsImFwaV9rZXkiOiI4NGQxYmRiMS01ZmUyLTRjMmQtYjk5ZS1hYTI2MmFiYzIyYTIifQ==",
+    api_token=os.environ['API_TOKEN'],
 )
 run["config/optimizer"] = optimizer
 

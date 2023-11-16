@@ -1,7 +1,7 @@
 # Weakly-Supervised-Segmentation-and-uncertainty-based-Interactive-Correction-on-Whole-Slide-Images
 
 
-This repository is created to replicate the results on the paper: ....
+This repository is created to replicate the results of the paper: ....
 
 ## 0. Donwload CAMELYON
 
@@ -17,7 +17,7 @@ path_annotations_train = os.path.join(PATH_CAMELYON, "annotations")
 path_annotations_test = os.path.join(PATH_CAMELYON, "test/annotations")
 ```
 
-## 1. Create Scribbles on each tumorous slide and generate ground truth mask.
+## 1. Create Scribbles on each tumorous slide and generate ground truth mask
 
 you can select the percentage of regions you want to scribble with the parameter ```percentage_scribbled_regions = 0.1``` in the config file 
 ```
@@ -47,7 +47,7 @@ python train.py
 
 Once the VGG16 is trained, the weights are saved in ```path_weights``` and the filename correponding contains the value of ```percentage_scribbled_region```.
 
-## 3. Generate patches/predictions/ground truth values on the original test set.
+## 3. Generate patches/predictions/ground truth values on the original test set
 
 ```
 cd ./generate_patches_gts_preds
@@ -66,9 +66,15 @@ This code uses the VGG16 trained in #2 and monte_carlo to extract for each patch
 
 1.   ```n_passes``` predictions.
 2.   The feature vector.
-3.   The grount truth value.
 
 the extracted data is save in ```path_prediction_features```
+
+
+```
+python get_gt_patches.py
+```
+
+This code generate the ground truth values for each patch and save them to  ```path_prediction_features```.
 
 ## 4. generate heatmaps/uncertainty heatmaps
 ![alt text](./images_git/uncertainty.png)
@@ -77,12 +83,11 @@ To generate a heatmap/uncerainty map:
 
 ```
 cd ./heatmaps
-python predict_and_create_heatmap.py --filename test_001 ### to create a heatmap
-python predict_and_create_uncertainty_map.py --filename test_001 --uncertainty entropy ### to create an uncertainty heatmap with entropy as uncertainty metric
+python predict_and_create_heatmap_and_uncertainty_map.py --filename test_001 --uncertainty entropy
 ```
 
 This 2 codes generate a heatmap for a given slide. To select the slide you can change the ```filename``` parameter.
-For the uncertainty heatmap you can select one of the 2  uncertainty metric available in uncerainty metrics:
+For the uncertainty heatmap you can select one of the 2  uncertainty metric available in uncerainty metrics:(arg = 'entropy or 'std'):
 
 1. ```compute_std```
 2. ```compute_entropy```
@@ -92,7 +97,6 @@ The code extracts the patch, overlays the prediction on the patch, save the patc
 
 ## 5. SVM Corrections
 ![img|320x271](./images_git/correction_process.png)
-
 
 ```
 cd ./correction_SVM

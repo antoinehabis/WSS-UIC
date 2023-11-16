@@ -93,8 +93,8 @@ class Send:
         return wkts
 
     def send_annotation(self, list_annotations, id_image, id_project):
-        pb_key = "868c4bac-e5b8-4758-9b4a-2980571c6bb2"
-        pv_key = "1476d15a-ec6e-48e0-95ea-d45a0ab0ff94"
+        pb_key = os.environ['PB_KEY']
+        pv_key = os.environ['PV_KEY']
         host = "https://nsclc.cytomine.com/"
 
         with Cytomine(host=host, public_key=pb_key, private_key=pv_key) as cytomine:
