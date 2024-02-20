@@ -1,5 +1,6 @@
 import sys
 from pathlib import Path
+
 sys.path.append(str(Path(__file__).resolve().parent.parent))
 from config import *
 from multiprocessing import Pool
@@ -44,22 +45,22 @@ if not os.path.exists(path_uncertainty):
     os.makedirs(path_uncertainty)
 
 path_pf = os.path.join(
-    os.path.join(path_prediction_features, filename), "predictions.npy"
+    os.path.join(path_prediction_features, filename),
+    "predictions_correction_3_heatmap.npy",
 )
-preds = np.squeeze(np.load(path_pf))
-
-
+preds = np.load(path_pf)
+print(preds.shape)
 ##### SELECT THE UNCERTAINTY MEASURE
-if uncertainty == "mvr":
-    uncertainties = compute_minority_vote_ratio(preds)
-if uncertainty == "entropy":
-    uncertainties = compute_entropy(preds, patch_level=True)
-if uncertainty == "std":
-    uncertainties = compute_std(preds, patch_level=True)
+# if uncertainty == "mvr":
+#     uncertainties = compute_minority_vote_ratio(preds)
+# if uncertainty == "entropy":
+#     uncertainties = compute_entropy(preds, patch_level=True)
+# if uncertainty == "std":
+#     uncertainties = compute_std(preds, patch_level=True)
 
 #####
 mean_predictions = np.mean(preds, axis=0)
-
+print(mean_predictions.shape)
 filenames = os.listdir(path_patches)
 i_s = np.arange(len(filenames))
 
@@ -69,44 +70,45 @@ def create_heatmap(
 ):
     filename, i = args
     real_img = np.asarray(Image.open(os.path.join(path_patches, filename))).copy()
-    uncertainty, mean = uncertainties[i], mean_predictions[i]
-    uncertainty_heatmap = 1 - (np.ones((ps, ps)) * uncertainty)
+    # uncertainty, mean = uncertainties[i], mean_predictions[i]
+    mean = mean_predictions[i]
+    # uncertainty_heatmap = 1 - (np.ones((ps, ps)) * uncertainty)
     heatmap = 1 - (np.ones((ps, ps)) * mean)
 
-    colormapped_uncertainty_heatmap = (
-        colormap_uncertainty(uncertainty_heatmap) * 255
-    ).astype(np.uint8)[:, :, :3]
-    img_uncertainty_save = cv2.addWeighted(
-        colormapped_uncertainty_heatmap, 0.6, real_img[:, :, :3], 0.4, 0
-    )
+    # colormapped_uncertainty_heatmap = (
+    #     colormap_uncertainty(uncertainty_heatmap) * 255
+    # ).astype(np.uint8)[:, :, :3]
+    # img_uncertainty_save = cv2.addWeighted(
+    #     colormapped_uncertainty_heatmap, 0.6, real_img[:, :, :3], 0.4, 0
+    # )
 
     heatmap = cv2.applyColorMap((heatmap * 255).astype(np.uint8), colormap_heatmap)
     img_heatmap_save = cv2.addWeighted(heatmap, 0.6, real_img[:, :, :3], 0.4, 0)
 
-    plt.imsave(os.path.join(path_uncertainty, filename), img_uncertainty_save)
+    # plt.imsave(os.path.join(path_uncertainty, filename), img_uncertainty_save)
     plt.imsave(os.path.join(path_prediction, filename), img_heatmap_save)
 
 
 if __name__ == "__main__":
     print("saving patches predictions...")
-    pool = Pool(processes=16)
+    pool = Pool(processes=8)
     pool.map(create_heatmap, zip(filenames, i_s))
     pool.close()
 
 print("stitching patches together and creating heatmap/uncertainty map...")
 
-if not os.path.exists(path_uncertainty_maps):
-    os.makedirs(path_uncertainty_maps)
+# if not os.path.exists(path_uncertainty_maps):
+#     os.makedirs(path_uncertainty_maps)
 
-sub = SubPatches2BigTiff(
-    patch_dir=path_uncertainty,
-    save_to=os.path.join(path_uncertainty_maps, filename + ".tif"),
-    ext="",
-    down_scale=4,
-    patch_size=(ps, ps),
-    xy_step=(int(ps * (1 - ov)), int(ps * (1 - ov))),
-)
-sub.save()
+# sub = SubPatches2BigTiff(
+#     patch_dir=path_uncertainty,
+#     save_to=os.path.join(path_uncertainty_maps, filename + ".tif"),
+#     ext="",
+#     down_scale=4,
+#     patch_size=(ps, ps),
+#     xy_step=(int(ps * (1 - ov)), int(ps * (1 - ov))),
+# )
+# sub.save()
 
 
 sub = SubPatches2BigTiff(

@@ -13,6 +13,7 @@ path_patches_scribbles_train = os.path.join(path_camelyon, "patches_scribbles_tr
 path_patches_scribbles_test = os.path.join(path_camelyon, "patches_scribbles_test")
 path_dataframe_train = os.path.join(path_camelyon, "dataframe_train.csv")
 path_dataframe_test = os.path.join(path_camelyon, "dataframe_test.csv")
+
 path_preds = "/home/ahabis/sshfs_zeus/CAMELYON"
 
 path_patches_test = os.path.join(path_preds, "patches_test")

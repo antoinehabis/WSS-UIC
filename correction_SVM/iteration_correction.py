@@ -6,6 +6,7 @@ from config import *
 from sklearn.linear_model import SGDClassifier
 from sklearn.decomposition import PCA
 import numpy as np
+s = SGDClassifier(shuffle=True)
 
 
 def metrics(predictions, trues):
@@ -33,7 +34,7 @@ def find_indexes(x, nb_scribble):
     return y[:nb_scribble]
 
 
-def compute_new_dataset(features, predictions, trues, initialization, nb_scribble=10):
+def compute_new_dataset(features, predictions, trues, initialization, nb_scribble=30):
     if initialization:
         thresh = optimal_threshold
         n_limit = 1000
@@ -99,8 +100,13 @@ def compute_new_dataset(features, predictions, trues, initialization, nb_scribbl
 
 
 def generate_progression_table(
-    image, init_epochs=800, inc_epochs=40, save_patches_preds_corr="y"
-):
+    image, init_epochs=1000, inc_epochs=30, save_patches_preds_corr="y"):
+
+    if save_patches_preds_corr == "y":
+        path_corrections_save = os.path.join(path_prediction_features, image)
+        if not os.path.exists(path_corrections_save):
+            os.makedirs(path_corrections_save)
+            
     current_image_path = os.path.join(path_prediction_features, image)
     mc_predictions = np.load(os.path.join(current_image_path, "predictions.npy"))
     predictions = np.mean(np.squeeze(mc_predictions), axis=0)
@@ -111,7 +117,7 @@ def generate_progression_table(
 
     data, y = compute_new_dataset(features, predictions, trues, initialization=True)
 
-    svm = SGDClassifier(shuffle=True, learning_rate="constant")
+    svm = SGDClassifier(shuffle=True, learning_rate="constant", loss='modified_huber')
     svm.eta0 = 1e-3
 
     # Initialize SVM
@@ -125,9 +131,13 @@ def generate_progression_table(
     for i in range(inc_epochs):
         svm.partial_fit(data, y)
 
-    a_predictions = svm.predict(features)
+    a_predictions = svm.predict_proba(features)[:,-1]
+
     a_predictions[indexes_fn1] = 1
     a_predictions[indexes_fp1] = 0
+
+    if save_patches_preds_corr == "y":
+        np.save(os.path.join(path_corrections_save, "predictions_correction_1_heatmap.npy"), a_predictions.reshape(1,-1))
 
     row2 = metrics(a_predictions, trues)
 
@@ -143,24 +153,30 @@ def generate_progression_table(
 
     for i in range(inc_epochs):
         svm.partial_fit(data, y, classes=[0, 1])
-    b_predictions = svm.predict(features)
+    b_predictions = svm.predict_proba(features)[:,-1]
+
     b_predictions[indexes_fn1] = 1
     b_predictions[indexes_fp1] = 0
     b_predictions[indexes_fn2] = 1
     b_predictions[indexes_fp2] = 0
+
+    if save_patches_preds_corr == "y":
+        np.save(os.path.join(path_corrections_save, "predictions_correction_2_heatmap.npy"), b_predictions.reshape(1,-1))
+
     row3 = metrics(b_predictions, trues)
 
     if np.around(row3[0], 3) == 1:
         row4, row5 = [1, 1, 1, 1], [1, 1, 1, 1]
         return np.array([row1, row2, row3, row4, row5])
-
+    
     # SVM pass 3
     data, y, indexes_fn3, indexes_fp3 = compute_new_dataset(
         features, b_predictions, trues, initialization=False
     )
     for i in range(inc_epochs):
         svm.partial_fit(data, y, classes=[0, 1])
-    c_predictions = svm.predict(features)
+    c_predictions = svm.predict_proba(features)[:,-1]
+
     c_predictions[indexes_fn1] = 1
     c_predictions[indexes_fp1] = 0
     c_predictions[indexes_fn2] = 1
@@ -168,6 +184,9 @@ def generate_progression_table(
     c_predictions[indexes_fn3] = 1
     c_predictions[indexes_fp3] = 0
 
+    if save_patches_preds_corr == "y":
+        np.save(os.path.join(path_corrections_save, "predictions_correction_3_heatmap.npy"), c_predictions.reshape(1,-1))
+    
     row4 = metrics(c_predictions, trues)
 
     if np.around(row4[0], 3) == 1:
@@ -182,7 +201,7 @@ def generate_progression_table(
     for i in range(inc_epochs):
         svm.partial_fit(data, y, classes=[0, 1])
 
-    d_predictions = svm.predict(features)
+    d_predictions = svm.predict_proba(features)[:,-1]
     d_predictions[indexes_fn1] = 1
     d_predictions[indexes_fp1] = 0
     d_predictions[indexes_fn2] = 1
@@ -194,12 +213,9 @@ def generate_progression_table(
     row5 = metrics(d_predictions, trues)
 
     if save_patches_preds_corr == "y":
-        path_corrections_save = os.path.join(
-            path_prediction_features, image)
-        if not os.path.exists(path_corrections_save):
-            os.makedirs(path_corrections_save)
-            
-        print(os.path.join(path_corrections_save, "predictions_correction.npy"))
-        np.save(os.path.join(path_corrections_save, "predictions_correction.npy"), d_predictions)
+        np.save(os.path.join(path_corrections_save, "predictions_correction_4_heatmap.npy"), d_predictions.reshape(1,-1))
+      
+        # print(os.path.join(path_corrections_save, "predictions_correction.npy"))
+        # np.save(os.path.join(path_corrections_save, "predictions_correction.npy"), d_predictions)
 
     return np.array([row1, row2, row3, row4, row5])

@@ -54,12 +54,11 @@ save = args.save
 
 def main(split, use_mc, n_tables, save):
     test_val_set = os.listdir(path_prediction_features)
-
     if split == "test":
         image_list = test_set
     if split == "val":
         image_list = val_set
-
+    image_list = ['test_084']
     ###
 
     epochs_range = [30]
@@ -126,9 +125,6 @@ def main(split, use_mc, n_tables, save):
         df_std.to_csv(os.path.join(std_table_directory, table_name))
 
     return 0
-
-print(use_mc)
-print(save)
 
 
 if __name__ == "__main__":
