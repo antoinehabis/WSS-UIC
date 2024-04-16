@@ -6,7 +6,7 @@ import numpy as np
 from config import *
 
 
-def compute_std(x, patch_level=True, optimal_threshold=0.1):
+def compute_std(x, patch_level=True, optimal_threshold=optimal_threshold):
     """
     Input: Monte_carlo predictions of the whole slide
         shape is (n_passes, nb_patches)
@@ -32,7 +32,7 @@ def compute_std(x, patch_level=True, optimal_threshold=0.1):
     return np.mean(pl)
 
 
-def compute_entropy(x, patch_level=True, optimal_threshold=0.1):
+def compute_entropy(x, patch_level=True, optimal_threshold=optimal_threshold):
     """
     Input: Monte_carlo predictions of the whole slide
         shape is (n_passes, nb_patches)

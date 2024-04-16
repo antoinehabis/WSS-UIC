@@ -8,6 +8,7 @@ import pandas as pd
 import numpy as np
 import argparse
 
+
 ImageFile.LOAD_TRUNCATED_IMAGES = True
 
 

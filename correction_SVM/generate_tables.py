@@ -10,6 +10,7 @@ import pandas as pd
 from tqdm import tqdm
 import argparse
 
+
 parser = argparse.ArgumentParser(
     description="Code to generate the tables from the paper."
 )
@@ -18,7 +19,7 @@ parser.add_argument(
     "--use_mc",
     help="choose it you want to use monte_carlo or not",
     type=str,
-    default=False,
+    default="y",
 )
 parser.add_argument(
     "-s",
@@ -53,49 +54,58 @@ save = args.save
 
 
 def main(split, use_mc, n_tables, save):
-    test_val_set = os.listdir(path_prediction_features)
+    # test_val_set = os.listdir(path_prediction_features)
+
     if split == "test":
         image_list = test_set
     if split == "val":
         image_list = val_set
-    image_list = ['test_084']
-    ###
 
     epochs_range = [30]
     tables = np.zeros((n_tables, len(epochs_range), 5, 4))
-
     for i in range(n_tables):
         for j, epochs in enumerate(epochs_range):
             score_tables = np.zeros((len(image_list), 5, 4))
 
             for n, image in tqdm(enumerate(image_list)):
 
-                if use_mc=='y':
+                if use_mc == "y":
                     current_image_path = os.path.join(path_prediction_features, image)
                     mc_predictions = np.load(
-                        os.path.join(current_image_path, "predictions.npy")
+                        os.path.join(current_image_path, "predictionsresnet50.npy")
                     )
                     predictions = np.squeeze(mc_predictions)
                     MAX_ENTROPY = 0.4
+
                     corr_effect = (
                         compute_entropy(predictions, patch_level=False) / MAX_ENTROPY
                     )
                     corr_epochs = np.clip((corr_effect * 2 * epochs), 1, None).astype(
                         int
                     )
+                    print(corr_epochs)
                 else:
                     corr_epochs = epochs
 
-                image_table = generate_progression_table(image, 1000, corr_epochs, save)
+                image_table = generate_progression_table(
+                    image,
+                    init_epochs=1000,
+                    inc_epochs=corr_epochs,
+                    save_patches_preds_corr=save,
+                )
+
                 score_tables[n] = image_table
 
             tables[i, j] = np.mean(score_tables, 0)
-            print(tables[i, j])
+
+            print(tables[i,j])
     table_means = np.mean(tables, axis=0)
     table_stds = np.std(tables, axis=0)
 
     for j, (table_mean, table_std) in enumerate(zip(table_means, table_stds)):
-        if use_mc=='y':
+
+        if use_mc == "y":
+
             sufix = "_mc"
         else:
             sufix = "_no_mc"
@@ -128,4 +138,6 @@ def main(split, use_mc, n_tables, save):
 
 
 if __name__ == "__main__":
+
+    print(split, use_mc, n_tables, save)
     main(split, use_mc, n_tables, save)

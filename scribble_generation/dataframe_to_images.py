@@ -76,5 +76,5 @@ def df_to_images(filename):
 
 
 if __name__ == "__main__":
-    pool = Pool(processes=16)
+    pool = Pool(processes=32)
     pool.map(df_to_images, slides)

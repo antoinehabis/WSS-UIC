@@ -8,7 +8,10 @@ import tifffile
 import numpy as np
 from tqdm import tqdm
 from openslide import OpenSlide
+
+
 filenames = os.listdir(path_slide_tumor_test)
+# filenames = ['test_008.tif']
 
 for filename in tqdm(filenames):
     

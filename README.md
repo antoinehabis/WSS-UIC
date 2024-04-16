@@ -38,14 +38,14 @@ The class of the patch is written inside the filename of the corresponding patch
 
 ![alt text](./images_git/scribble_process.png)
 
-## 2. Train VGG16 on Scribbles
+## 2. Train VGG16 or ResNet on Scribbles
 
 ```
 cd ./train_vgg
 python train.py
 ```
 
-Once the VGG16 is trained, the weights are saved in ```path_weights``` and the filename correponding contains the value of ```percentage_scribbled_region```.
+Once the ResNet/VGG16 is trained, the weights are saved in ```path_weights``` and the filename correponding contains the value of ```percentage_scribbled_region```.
 
 ## 3. Generate patches/predictions/ground truth values on the original test set
 
@@ -59,9 +59,9 @@ if you have ```num_processors = 16``` and ```n_slides= 48``` then the code must 
 The patches are saved in ```path_patches_test```.
 
 ```
-python monte_carlo.py --n_passes 20
+python monte_carlo.py --n_passes <number_mc_passes> --model <model> 
 ```
-
+model can be either resnet50 or vgg16.
 This code uses the VGG16 trained in #2 and monte_carlo to extract for each patch of each slide:
 
 1.   ```n_passes``` predictions.
@@ -77,6 +77,7 @@ python get_gt_patches.py
 This code generate the ground truth values for each patch and save them to  ```path_prediction_features```.
 
 ## 4. generate heatmaps/uncertainty heatmaps
+
 ![alt text](./images_git/uncertainty.png)
 
 To generate a heatmap/uncerainty map:
@@ -86,7 +87,7 @@ cd ./heatmaps
 python predict_and_create_heatmap_and_uncertainty_map.py --filename test_001 --uncertainty entropy
 ```
 
-This 2 codes generate a heatmap for a given slide. To select the slide you can change the ```filename``` parameter.
+This 2 codes generate a heatmap for a given slide. To select the slide you can change the ```filename``` parameter. If parameter uncertainty is not set this code create a heatmap.
 For the uncertainty heatmap you can select one of the 2  uncertainty metric available in uncerainty metrics:(arg = 'entropy or 'std'):
 
 1. ```compute_std```

@@ -1,0 +1,56 @@
+/pasteur/appa/homes/ahabis/miniconda3/envs/scribble/lib/python3.9/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/pasteur/appa/homes/ahabis/miniconda3/envs/scribble/lib/python3.9/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=None`.
+  warnings.warn(msg)
+[neptune] [info   ] Neptune initialized. Open in the app: offline/6ffe9aa5-bb4f-4960-961e-50f3a936ed99
+/pasteur/appa/homes/ahabis/miniconda3/envs/scribble/lib/python3.9/site-packages/torchvision/models/_utils.py:208: UserWarning: The parameter 'pretrained' is deprecated since 0.13 and may be removed in the future, please use 'weights' instead.
+  warnings.warn(
+/pasteur/appa/homes/ahabis/miniconda3/envs/scribble/lib/python3.9/site-packages/torchvision/models/_utils.py:223: UserWarning: Arguments other than a weight enum or `None` for 'weights' are deprecated since 0.13 and may be removed in the future. The current behavior is equivalent to passing `weights=ResNet50_Weights.IMAGENET1K_V1`. You can also use `weights=ResNet50_Weights.DEFAULT` to get the most up-to-date weights.
+  warnings.warn(msg)
+Downloading: "https://download.pytorch.org/models/resnet50-0676ba61.pth" to /pasteur/appa/homes/ahabis/.cache/torch/hub/checkpoints/resnet50-0676ba61.pth
+Traceback (most recent call last):
+  File "/pasteur/appa/homes/ahabis/WSS-UIC/train_vgg_resnet/train.py", line 35, in <module>
+    model = RESNET50(resnet50(pretrained=True)).cuda()
+  File "/pasteur/appa/homes/ahabis/miniconda3/envs/scribble/lib/python3.9/site-packages/torchvision/models/_utils.py", line 142, in wrapper
+    return fn(*args, **kwargs)
+  File "/pasteur/appa/homes/ahabis/miniconda3/envs/scribble/lib/python3.9/site-packages/torchvision/models/_utils.py", line 228, in inner_wrapper
+    return builder(*args, **kwargs)
+  File "/pasteur/appa/homes/ahabis/miniconda3/envs/scribble/lib/python3.9/site-packages/torchvision/models/resnet.py", line 763, in resnet50
+    return _resnet(Bottleneck, [3, 4, 6, 3], weights, progress, **kwargs)
+  File "/pasteur/appa/homes/ahabis/miniconda3/envs/scribble/lib/python3.9/site-packages/torchvision/models/resnet.py", line 301, in _resnet
+    model.load_state_dict(weights.get_state_dict(progress=progress, check_hash=True))
+  File "/pasteur/appa/homes/ahabis/miniconda3/envs/scribble/lib/python3.9/site-packages/torchvision/models/_api.py", line 90, in get_state_dict
+    return load_state_dict_from_url(self.url, *args, **kwargs)
+  File "/pasteur/appa/homes/ahabis/miniconda3/envs/scribble/lib/python3.9/site-packages/torch/hub.py", line 766, in load_state_dict_from_url
+    download_url_to_file(url, cached_file, hash_prefix, progress=progress)
+  File "/pasteur/appa/homes/ahabis/miniconda3/envs/scribble/lib/python3.9/site-packages/torch/hub.py", line 620, in download_url_to_file
+    u = urlopen(req)
+  File "/pasteur/appa/homes/ahabis/miniconda3/envs/scribble/lib/python3.9/urllib/request.py", line 214, in urlopen
+    return opener.open(url, data, timeout)
+  File "/pasteur/appa/homes/ahabis/miniconda3/envs/scribble/lib/python3.9/urllib/request.py", line 517, in open
+    response = self._open(req, data)
+  File "/pasteur/appa/homes/ahabis/miniconda3/envs/scribble/lib/python3.9/urllib/request.py", line 534, in _open
+    result = self._call_chain(self.handle_open, protocol, protocol +
+  File "/pasteur/appa/homes/ahabis/miniconda3/envs/scribble/lib/python3.9/urllib/request.py", line 494, in _call_chain
+    result = func(*args)
+  File "/pasteur/appa/homes/ahabis/miniconda3/envs/scribble/lib/python3.9/urllib/request.py", line 1389, in https_open
+    return self.do_open(http.client.HTTPSConnection, req,
+  File "/pasteur/appa/homes/ahabis/miniconda3/envs/scribble/lib/python3.9/urllib/request.py", line 1346, in do_open
+    h.request(req.get_method(), req.selector, req.data, headers,
+  File "/pasteur/appa/homes/ahabis/miniconda3/envs/scribble/lib/python3.9/http/client.py", line 1285, in request
+    self._send_request(method, url, body, headers, encode_chunked)
+  File "/pasteur/appa/homes/ahabis/miniconda3/envs/scribble/lib/python3.9/http/client.py", line 1331, in _send_request
+    self.endheaders(body, encode_chunked=encode_chunked)
+  File "/pasteur/appa/homes/ahabis/miniconda3/envs/scribble/lib/python3.9/http/client.py", line 1280, in endheaders
+    self._send_output(message_body, encode_chunked=encode_chunked)
+  File "/pasteur/appa/homes/ahabis/miniconda3/envs/scribble/lib/python3.9/http/client.py", line 1040, in _send_output
+    self.send(msg)
+  File "/pasteur/appa/homes/ahabis/miniconda3/envs/scribble/lib/python3.9/http/client.py", line 980, in send
+    self.connect()
+  File "/pasteur/appa/homes/ahabis/miniconda3/envs/scribble/lib/python3.9/http/client.py", line 1447, in connect
+    super().connect()
+  File "/pasteur/appa/homes/ahabis/miniconda3/envs/scribble/lib/python3.9/http/client.py", line 946, in connect
+    self.sock = self._create_connection(
+  File "/pasteur/appa/homes/ahabis/miniconda3/envs/scribble/lib/python3.9/socket.py", line 832, in create_connection
+    sock.connect(sa)
+KeyboardInterrupt

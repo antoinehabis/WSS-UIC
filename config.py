@@ -1,21 +1,15 @@
 import os
 
-path_camelyon = "/home/ahabis/sshfs/CAMELYON"
-
-
-path_slide_tumor_train = os.path.join(path_camelyon, "train/tumor")
-path_slide_tumor_test = os.path.join(path_camelyon, "test/tumor")
-path_annotations_train = os.path.join(path_camelyon, "train/annotations")
-path_annotations_test = os.path.join(path_camelyon, "test/annotations")
-
-
-path_patches_scribbles_train = os.path.join(path_camelyon, "patches_scribbles_train")
-path_patches_scribbles_test = os.path.join(path_camelyon, "patches_scribbles_test")
-path_dataframe_train = os.path.join(path_camelyon, "dataframe_train.csv")
-path_dataframe_test = os.path.join(path_camelyon, "dataframe_test.csv")
-
-path_preds = "/home/ahabis/sshfs_zeus/CAMELYON"
-
+path_preds = os.getenv('PATH_ZEUS')
+path_preds = '/pasteur/zeus/projets/p02/bia/ahabis/CAMELYON/'
+path_slide_tumor_train = os.path.join(path_preds, "train/tumor")
+path_slide_tumor_test = os.path.join(path_preds, "test/tumor")
+path_annotations_train = os.path.join(path_preds, "train/annotations")
+path_annotations_test = os.path.join(path_preds, "test/annotations")
+path_dataframe_train = os.path.join(path_preds, "dataframe_train.csv")
+path_dataframe_test = os.path.join(path_preds, "dataframe_test.csv")
+path_patches_scribbles_train = os.path.join(path_preds, "patches_scribbles_train")
+path_patches_scribbles_test = os.path.join(path_preds, "patches_scribbles_test")
 path_patches_test = os.path.join(path_preds, "patches_test")
 path_patches_mask_test = os.path.join(path_preds, "patches_masks")
 path_prediction_features = os.path.join(path_preds, "features_predictions")
@@ -23,7 +17,6 @@ path_slide_true_masks = os.path.join(path_preds, "truemasks")
 path_uncertainty_maps = os.path.join(path_preds, "uncertainty_maps")
 path_heatmaps = os.path.join(path_preds, "heatmaps")
 path_segmaps = os.path.join(path_preds, "segmaps")
-
 path_metric_tables = os.path.join(path_preds, "metric_tables")
 path_weights = os.path.join(path_preds, "weights")
 path_prediction_patches = os.path.join(path_preds, 'patches_prediction')
@@ -57,8 +50,15 @@ test_set = [
     "test_122",
     "test_074",
     "test_079",
-    
-]
+    "test_097",
+    "test_084",
+    "test_102",
+    "test_116",
+    "test_117",
+    "test_010",
+    "test_011"]
+
+
 val_set = [
     "test_016",
     "test_068",
