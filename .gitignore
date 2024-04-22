@@ -3,3 +3,4 @@ cytomine/
 **/.out
 **/.ipynb_checkpoints/
 **/__pycache__/
+**.neptune/*
