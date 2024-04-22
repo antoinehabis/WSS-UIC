@@ -1,3 +1,5 @@
 unused/
 cytomine/
 **/.out
+**/.ipynb_checkpoints/
+**/__pycache__/
