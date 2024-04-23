@@ -4,4 +4,3 @@ cytomine/
 **/.ipynb_checkpoints/
 **/__pycache__/
 **.neptune/*
-scribble_generation/dell_annotation.py
