@@ -39,6 +39,7 @@ k = args.k  # index of the split: can only run 16 Slides at a time so we have to
 wsi_fn = glob(path_slide_tumor_test + "/*")[
     num_processors * k : num_processors * (k + 1)
 ]  # The corresponding 16 slides
+
 patches = os.listdir(path_slide_tumor_test)[
     num_processors * k : num_processors * (k + 1)
 ]

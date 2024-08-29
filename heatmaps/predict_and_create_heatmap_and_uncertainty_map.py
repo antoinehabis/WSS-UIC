@@ -27,7 +27,7 @@ parser.add_argument(
     "--uncertainty",
     help="Select the uncertainty metric you want to calculate:\n choose between mvr, entropy, std",
     type=str,
-    default="entropy",
+    default=None,
 )
 args = parser.parse_args()
 filename = args.filename
@@ -46,7 +46,7 @@ if not os.path.exists(path_uncertainty):
 
 path_pf = os.path.join(
     os.path.join(path_prediction_features, filename),
-    "predictions_correction_3_heatmap.npy",
+    "predictions_correction_1_heatmap.npy",
 )
 preds = np.load(path_pf)
 
@@ -60,11 +60,9 @@ if uncertainty == "std":
     uncertainties = compute_std(preds, patch_level=True)
 else:
     mean_predictions = np.mean(preds, axis=0)
-
 #####
 filenames = os.listdir(path_patches)
 i_s = np.arange(len(filenames))
-
 
 def create_heatmap(
     args,
@@ -74,8 +72,8 @@ def create_heatmap(
 ):
     filename, i = args
     real_img = np.asarray(Image.open(os.path.join(path_patches, filename))).copy()
-    uncertainty, mean = uncertainties[i], mean_predictions[i]
     if uncertainty != None:
+        uncertainty = uncertainties[i]
         heatmap = 1 - (np.ones((ps, ps)) * uncertainty)
 
         colormapped_uncertainty_heatmap = (colormap_uncertainty(heatmap) * 255).astype(
@@ -87,7 +85,7 @@ def create_heatmap(
         plt.imsave(os.path.join(path_uncertainty, filename), img_heatmap_save)
 
     else:
-
+        mean = mean_predictions[i]
         heatmap = 1 - (np.ones((ps, ps)) * mean)
         heatmap = cv2.applyColorMap((heatmap * 255).astype(np.uint8), colormap_heatmap)
         img_heatmap_save = cv2.addWeighted(heatmap, 0.6, real_img[:, :, :3], 0.4, 0)
@@ -101,7 +99,6 @@ if __name__ == "__main__":
     pool.close()
 
 print("stitching patches together and creating heatmap/uncertainty map...")
-
 if uncertainty != None:
     if not os.path.exists(path_uncertainty_maps):
         os.makedirs(path_uncertainty_maps)

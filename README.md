@@ -1,7 +1,9 @@
 # Weakly-Supervised-Segmentation-and-uncertainty-based-Interactive-Correction-on-Whole-Slide-Images
 
+![Python](https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54)
+[![Mail](https://img.shields.io/badge/Gmail-D14836?style=for-the-badge&logo=gmail&logoColor=white)](mailto:antoine.habis.tlcm@gmail.com)
+[![ArXiv Paper](https://img.shields.io/badge/DOI-10.1038%2Fs41586--020--2649--2-blue)](https://doi.org/10.48550/arXiv.2402.08333)
 
-This repository is created to replicate the results of the paper: ....
 
 ## 0. Donwload CAMELYON
 
@@ -109,3 +111,17 @@ you can either:
 1.  use monte-carlo or not for the correction process with the boolean ```use_mc = y/n```.
 2.  Select the folder you want to do the correction process on : ```folder = val/test```
 3.  Select the epochs range if you want to try different number of epochs for the correction step by changing ```epochs_range```
+
+
+If you use this code bellow please cite:
+```
+@misc{habis2024scribblebasedfastweaksupervisioninteractive,
+      title={Scribble-based fast weak-supervision and interactive corrections for segmenting whole slide images}, 
+      author={Antoine Habis and Roy Rosman Nathanson and Vannary Meas-Yedid and Elsa D. Angelini and Jean-Christophe Olivo-Marin},
+      year={2024},
+      eprint={2402.08333},
+      archivePrefix={arXiv},
+      primaryClass={cs.CV},
+      url={https://arxiv.org/abs/2402.08333}, 
+}
+```

@@ -45,22 +45,31 @@ parser.add_argument(
     default="y",
 )
 
+parser.add_argument(
+    "-model",
+    "--model",
+    help="choose the model of your choice",
+    type=str,
+    default="vgg16",
+)
+
 args = parser.parse_args()
 
 n_tables = args.n_tables
 split = args.split
 use_mc = args.use_mc
 save = args.save
+model_name = args.model
 
 
-def main(split, use_mc, n_tables, save):
+def main(split, use_mc, n_tables, save, model_name):
     # test_val_set = os.listdir(path_prediction_features)
 
     if split == "test":
         image_list = test_set
     if split == "val":
         image_list = val_set
-
+    image_list = ['test_084']
     epochs_range = [30]
     tables = np.zeros((n_tables, len(epochs_range), 5, 4))
     for i in range(n_tables):
@@ -72,7 +81,7 @@ def main(split, use_mc, n_tables, save):
                 if use_mc == "y":
                     current_image_path = os.path.join(path_prediction_features, image)
                     mc_predictions = np.load(
-                        os.path.join(current_image_path, "predictionsresnet50.npy")
+                        os.path.join(current_image_path, "predictions"+model_name+".npy")
                     )
                     predictions = np.squeeze(mc_predictions)
                     MAX_ENTROPY = 0.4
@@ -92,6 +101,7 @@ def main(split, use_mc, n_tables, save):
                     init_epochs=1000,
                     inc_epochs=corr_epochs,
                     save_patches_preds_corr=save,
+                    model_name = model_name
                 )
 
                 score_tables[n] = image_table
@@ -139,5 +149,5 @@ def main(split, use_mc, n_tables, save):
 
 if __name__ == "__main__":
 
-    print(split, use_mc, n_tables, save)
-    main(split, use_mc, n_tables, save)
+    print(split, use_mc, n_tables, save, model_name)
+    main(split, use_mc, n_tables, save, model_name)

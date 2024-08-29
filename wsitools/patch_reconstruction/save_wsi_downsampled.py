@@ -22,9 +22,8 @@ def hann_2d_win(shape=(256, 256)):
     def hann2d(i, j):
         i_val = 1 - np.cos((2 * math.pi * i) / (shape[0] - 1))
         j_val = 1 - np.cos((2 * math.pi * j) / (shape[1] - 1))
-        normalized = (i_val * j_val) / 4
-
-        return normalized
+        hanning = (i_val * j_val) 
+        return hanning
 
     hann2d_win = np.fromfunction(hann2d, shape)
     return hann2d_win
@@ -52,7 +51,7 @@ class SubPatches2BigTiff:
         self.out_arr = (
                 np.zeros((int(h / self.down_scale), int(w / self.down_scale), 3)) + 255
             )
-        self.filter = hann_2d_win((512 // down_scale, 512 // down_scale))
+        self.filter = hann_2d_win((self.patch_size[0] // down_scale, self.patch_size[1] // down_scale))
 
     @staticmethod
     def shell_cmd(cmd):
@@ -98,7 +97,9 @@ class SubPatches2BigTiff:
             y = int(p[3].split('.')[0])
             x_loc = int((x-self.x_min)/self.down_scale)
             y_loc = int((y-self.y_min)/self.down_scale)
-            self.out_arr[y_loc:y_loc+y_r, x_loc:x_loc+x_r, :] += sub_arr * self.filter[:,:,None]
+            print('max_filter', np.max(self.filter))
+            print('normalize',(self.xy_step[0]/self.patch_size[0])**2)
+            self.out_arr[y_loc:y_loc+y_r, x_loc:x_loc+x_r, :] += sub_arr * self.filter[:,:,None]*(self.xy_step[0]/self.patch_size[0])**2
         except:
             pass
 

@@ -10,8 +10,8 @@ from tqdm import tqdm
 from openslide import OpenSlide
 
 
-filenames = os.listdir(path_slide_tumor_test)
-# filenames = ['test_008.tif']
+# filenames = os.listdir(path_slide_tumor_test)
+filenames = ['test_084.tif']
 
 for filename in tqdm(filenames):
     
@@ -28,7 +28,7 @@ for filename in tqdm(filenames):
     print("retrieving labels from mask ...")
     path_patches = os.path.join(path_patches_test, filename)
     img = OpenSlide(path_mask)
-    print("finish loading image")
+    print("image loaded successfully ...")
 
     files = os.listdir(path_patches)
     true_vals_base = multiprocessing.Array(ctypes.c_double, len(files))

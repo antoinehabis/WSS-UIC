@@ -25,9 +25,9 @@ path_uncertainty_patches = os.path.join(path_preds, 'patches_uncertainty')
 
 
 
-optimal_threshold = 0.33
+optimal_threshold = 0.6
 percentage_scribbled_regions = 0.1
-ov = 0.5 #### overlap
+ov = 0.7 #### overlap
 ps = 512 #### patch_size
 bs = 16 #### batch_size
 n_passes = 20 ## monte_carlo predictions

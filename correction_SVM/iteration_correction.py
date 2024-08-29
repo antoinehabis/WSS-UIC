@@ -7,7 +7,6 @@ from sklearn.linear_model import SGDClassifier
 from sklearn.decomposition import PCA
 import numpy as np
 
-s = SGDClassifier(shuffle=True)
 
 
 def metrics(predictions, trues):
@@ -37,11 +36,11 @@ def find_indexes(x, nb_scribble):
     return y[:nb_scribble]
 
 
-def compute_new_dataset(features, predictions, trues, initialization, nb_scribble=10):
+def compute_new_dataset(features, predictions, trues, initialization, nb_scribble=60):
 
     if initialization:
         binary_predictions = (predictions >= optimal_threshold).astype(int)
-        n_limit = 1000
+        n_limit = 5000
         argsort = np.argsort(predictions)
         tp_indexes = argsort[-np.min([np.sum(binary_predictions), n_limit]) :]
         tn_indexes = argsort[: np.min([np.sum((1 - binary_predictions)), n_limit])]
@@ -55,7 +54,7 @@ def compute_new_dataset(features, predictions, trues, initialization, nb_scribbl
         return data, y
 
     else:
-        binary_predictions = predictions
+        binary_predictions = (predictions >= 0.5).astype(int)
 
         tp = binary_predictions * trues
         tn = (1 - binary_predictions) * (1 - trues)
@@ -93,9 +92,9 @@ def compute_new_dataset(features, predictions, trues, initialization, nb_scribbl
 
 
 def generate_progression_table(
-    image, init_epochs=1000, inc_epochs=30, save_patches_preds_corr="y"
+    image, model_name, init_epochs=1000, inc_epochs=30, save_patches_preds_corr="y"
 ):
-
+    
     if save_patches_preds_corr == "y":
         path_corrections_save = os.path.join(path_prediction_features, image)
         if not os.path.exists(path_corrections_save):
@@ -104,36 +103,32 @@ def generate_progression_table(
     #################### LOAD THE DATA #####################
     current_image_path = os.path.join(path_prediction_features, image)
     mc_predictions = np.load(
-        os.path.join(current_image_path, "predictionsresnet50.npy")
+        os.path.join(current_image_path, "predictions"+model_name+".npy")
     )
     predictions = np.mean(np.squeeze(mc_predictions), axis=0)
     trues = np.load(os.path.join(current_image_path, "trues.npy"))
-
-    features = np.load(os.path.join(current_image_path, "featuresresnet50.npy"))
+    features = np.load(os.path.join(current_image_path, "features"+model_name+".npy"))
     features = PCA(1000).fit_transform(features)  ### normalize the features for the svm
 
     #################### INITIALIZE SVM ####################
 
     row1 = metrics(predictions >= optimal_threshold, trues)
-    data, y = compute_new_dataset(features, predictions, trues, initialization=True)
-
-    svm = SGDClassifier(shuffle=True)
+    data0, y0 = compute_new_dataset(features, predictions, trues, initialization=True)
+    svm = SGDClassifier(shuffle=True,loss='modified_huber')
     svm.eta0 = 1e-3
-    # Initialize SVM
     for i in range(init_epochs):
-        svm.partial_fit(data, y, classes=[0, 1])
-
-
+        svm.partial_fit(data0, y0, classes=[0, 1])
     #################### PASS 1 SVM ########################
         
-    data, y, indexes_fn1, indexes_fp1 = compute_new_dataset(
+    data1, y1, indexes_fn1, indexes_fp1 = compute_new_dataset(
         features, predictions, trues, initialization=False
     )
+    data1, y1 = np.concatenate((data1,data0),axis = 0), np.concatenate((y1,y0),axis = 0)
 
     for i in range(inc_epochs):
-        svm.partial_fit(data, y)
+        svm.partial_fit(data1, y1)
 
-    a_predictions = svm.predict(features)
+    a_predictions = svm.predict_proba(features)[:,1]
     a_predictions[indexes_fn1] = 1
     a_predictions[indexes_fp1] = 0
 
@@ -143,7 +138,7 @@ def generate_progression_table(
             a_predictions.reshape(1, -1),
         )
 
-    row2 = metrics(a_predictions >= optimal_threshold, trues)
+    row2 = metrics(a_predictions >= 0.5, trues)
 
     if np.around(row2[0], 3) == 1:
         row3, row4, row5 = [1, 1, 1, 1], [1, 1, 1, 1], [1, 1, 1, 1]
@@ -151,13 +146,14 @@ def generate_progression_table(
 
     #################### PASS 2 SVM ########################
     
-    data, y, indexes_fn2, indexes_fp2 = compute_new_dataset(
+    data2, y2, indexes_fn2, indexes_fp2 = compute_new_dataset(
         features, a_predictions, trues, initialization=False
     )
+    data2, y2 = np.concatenate((data2,data1),axis = 0), np.concatenate((y2,y1),axis = 0)
 
     for i in range(inc_epochs):
-        svm.partial_fit(data, y, classes=[0, 1])
-    b_predictions = svm.predict(features)
+        svm.partial_fit(data2, y2, classes=[0, 1])
+    b_predictions = svm.predict_proba(features)[:,1]
 
     b_predictions[indexes_fn1] = 1
     b_predictions[indexes_fp1] = 0
@@ -170,7 +166,7 @@ def generate_progression_table(
             b_predictions.reshape(1, -1),
         )
 
-    row3 = metrics(b_predictions >= optimal_threshold, trues)
+    row3 = metrics(b_predictions >= 0.5, trues)
 
     if np.around(row3[0], 3) == 1:
         row4, row5 = [1, 1, 1, 1], [1, 1, 1, 1]
@@ -178,12 +174,15 @@ def generate_progression_table(
 
     #################### PASS 3 SVM ########################
     
-    data, y, indexes_fn3, indexes_fp3 = compute_new_dataset(
+    data3, y3, indexes_fn3, indexes_fp3 = compute_new_dataset(
         features, b_predictions, trues, initialization=False
     )
+    data3, y3 = np.concatenate((data3,data2),axis = 0), np.concatenate((y3,y2),axis = 0)
+
     for i in range(inc_epochs):
-        svm.partial_fit(data, y, classes=[0, 1])
-    c_predictions = svm.predict(features)
+        svm.partial_fit(data3, y3, classes=[0, 1])
+
+    c_predictions = svm.predict_proba(features)[:,1]
 
     c_predictions[indexes_fn1] = 1
     c_predictions[indexes_fp1] = 0
@@ -198,21 +197,22 @@ def generate_progression_table(
             c_predictions.reshape(1, -1),
         )
 
-    row4 = metrics(c_predictions >= optimal_threshold, trues)
+    row4 = metrics(c_predictions >= 0.5, trues)
 
     if np.around(row4[0], 3) == 1:
         row5 = [1, 1, 1, 1]
         return np.array([row1, row2, row3, row4, row5])
 
     #################### PASS 4 SVM ########################
-    data, y, indexes_fn4, indexes_fp4 = compute_new_dataset(
+    data4, y4, indexes_fn4, indexes_fp4 = compute_new_dataset(
         features, c_predictions, trues, initialization=False
     )
+    data4, y4 = np.concatenate((data4,data3),axis = 0), np.concatenate((y4,y3),axis = 0)
 
     for i in range(inc_epochs):
-        svm.partial_fit(data, y, classes=[0, 1])
+        svm.partial_fit(data4, y4, classes=[0, 1])
 
-    d_predictions = svm.predict(features)
+    d_predictions = svm.predict_proba(features)[:,1]
     d_predictions[indexes_fn1] = 1
     d_predictions[indexes_fp1] = 0
     d_predictions[indexes_fn2] = 1
@@ -222,7 +222,7 @@ def generate_progression_table(
     d_predictions[indexes_fn4] = 1
     d_predictions[indexes_fp4] = 0
 
-    row5 = metrics(d_predictions >= optimal_threshold, trues)
+    row5 = metrics(d_predictions >= 0.5, trues)
 
     if save_patches_preds_corr == "y":
         np.save(

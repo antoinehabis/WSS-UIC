@@ -46,7 +46,7 @@ def enable_dropout(model):
 if name_model =='vgg16':
     print('you chose to work with the {}'.format(name_model))
     model = VGG16(vgg16(pretrained=False)).cuda()
-    model.load_state_dict(torch.load(os.path.join(path_weights,'weights_'+str(percentage_scribbled_regions))))
+    model.load_state_dict(torch.load(os.path.join(path_weights,'weights')))
     
     class Monte_carlo_model(torch.nn.Module):
         def __init__(self, model, n_passes=n_passes):
@@ -125,8 +125,8 @@ def evaluate(model, val_dl):
     return all_labels, all_predicted_labels, all_features
 
 
-filenames = os.listdir(path_slide_tumor_test)
-
+# filenames = os.listdir(path_slide_tumor_test)
+filenames = ['test_084.tif']
 for filename in tqdm(filenames):
     print('processing image {} ....'.format(filename))
     # try:
